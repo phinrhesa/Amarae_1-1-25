@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -16,9 +18,11 @@ import javax.swing.JPanel;
  */
 public class UserDashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form UserDashboard
-     */
+    Color selectionColor = new Color (41, 0, 10);
+    Color sideColor = new Color (213,172,95);
+    Color textSelectionColor = new Color (255, 255, 255);
+    int xx, xy;
+
     public UserDashboard() {
         initComponents();
     }
@@ -72,6 +76,11 @@ public class UserDashboard extends javax.swing.JFrame {
         setBackground(new java.awt.Color(98, 123, 118));
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(98, 123, 118));
@@ -79,6 +88,16 @@ public class UserDashboard extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 781));
 
         jPanel2.setBackground(new java.awt.Color(136, 7, 11));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,6 +182,11 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel7.setText("Purchase Details");
         jLabel7.setAlignmentX(1.0F);
         jLabel7.setIconTextGap(2);
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         jPanel9.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -225,6 +249,11 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel9.setText("Purchase Product");
         jLabel9.setAlignmentX(1.0F);
         jLabel9.setIconTextGap(2);
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         jPanel11.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -287,6 +316,11 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel20.setText("My Account");
         jLabel20.setAlignmentX(1.0F);
         jLabel20.setIconTextGap(2);
+        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel20MouseClicked(evt);
+            }
+        });
 
         jPanel17.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -301,9 +335,9 @@ public class UserDashboard extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Myaccountlight.png"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Myaccount.png"))); // NOI18N
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Myaccount.png"))); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Myaccountlight.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -502,6 +536,65 @@ public class UserDashboard extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        jPanel10.setBackground(selectionColor);
+        jPanel11.setBackground(sideColor);
+        jLabel9.setForeground(textSelectionColor);
+        jLabel19.setVisible(false);
+        jLabel10.setVisible(true);
+        Purchase purchase = new Purchase();
+        purchase.setVisible(true);
+        purchase.pack();
+        
+       
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        jPanel8.setBackground(selectionColor);
+        jPanel9.setBackground(sideColor);
+        jLabel7.setForeground(textSelectionColor);
+        jLabel18.setVisible(false);
+        jLabel8.setVisible(true);
+        PurchaseDetails purchaseDetails = new PurchaseDetails();
+        purchaseDetails.setVisible(true);
+        purchaseDetails.pack();
+        
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
+        jPanel16.setBackground(selectionColor);
+        jPanel17.setBackground(sideColor);
+        jLabel20.setForeground(textSelectionColor);
+        jLabel22.setVisible(false);
+        jLabel21.setVisible(true);
+        UserAccount userAccount = new UserAccount();
+        userAccount.setVisible(true);
+        userAccount.pack();
+    }//GEN-LAST:event_jLabel20MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+            for(double i = 0.1; i<=1.0; i+=0.1){
+                String s = ""+i;
+                float f = Float.parseFloat(s);
+                this.setOpacity(f);
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(UserDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }    }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+             xx = evt.getX();
+             xy = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+           int x = evt.getXOnScreen();
+           int y = evt.getYOnScreen();
+           this.setLocation(x - xx, y - xy);                                        
+    }//GEN-LAST:event_jPanel2MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -539,7 +632,7 @@ public class UserDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    public static javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -547,32 +640,32 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
+    public static javax.swing.JLabel jLabel18;
+    public static javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
+    public static javax.swing.JLabel jLabel20;
+    public static javax.swing.JLabel jLabel21;
+    public static javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    public static javax.swing.JLabel jLabel7;
+    public static javax.swing.JLabel jLabel8;
+    public static javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
+    public static javax.swing.JPanel jPanel10;
+    public static javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
+    public static javax.swing.JPanel jPanel16;
+    public static javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    public static javax.swing.JPanel jPanel8;
+    public static javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel

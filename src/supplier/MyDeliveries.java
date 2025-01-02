@@ -4,15 +4,21 @@
  */
 package supplier;
 
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import user.Login;
+
 /**
  *
  * @author ezekiel
  */
 public class MyDeliveries extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MyDeliveries
-     */
+    Color textPrimaryColor = new Color(217, 173, 154);
+    Color primaryColor = new Color(41, 0, 10);
+    int xx, xy;
+    
     public MyDeliveries() {
         initComponents();
     }
@@ -34,8 +40,25 @@ public class MyDeliveries extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(43, 50, 63));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel1MousePressed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +155,7 @@ public class MyDeliveries extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -139,8 +163,37 @@ public class MyDeliveries extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        System.exit(0);
+        setVisible(false);
+        SupplierDashboard.jPanel16.setBackground(primaryColor);
+        SupplierDashboard.jPanel17.setBackground(primaryColor);
+        SupplierDashboard.jLabel18.setForeground(textPrimaryColor);
+        SupplierDashboard.jLabel19.setVisible(false);
+        SupplierDashboard.jLabel20.setVisible(true);
+        
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+            for(double i = 0.1; i<=1.0; i+=0.1){
+                String s = ""+i;
+                float f = Float.parseFloat(s);
+                this.setOpacity(f);
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MyDeliveries.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }    }//GEN-LAST:event_formWindowOpened
+
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+             xx = evt.getX();
+             xy = evt.getY();
+    }//GEN-LAST:event_jPanel1MousePressed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+           int x = evt.getXOnScreen();
+           int y = evt.getYOnScreen();
+           this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments
