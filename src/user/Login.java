@@ -286,6 +286,7 @@ public class Login extends javax.swing.JFrame {
                         UserDashboard ud = new UserDashboard();
                         ud.setVisible(true);
                         ud.pack();
+                        UserDashboard.userEmail.setText(email);                      
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        
@@ -305,6 +306,7 @@ public class Login extends javax.swing.JFrame {
                         SupplierDashboard sd = new SupplierDashboard();
                         sd.setVisible(true);
                         sd.pack();
+                        SupplierDashboard.supplierEmail.setText(email);
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        
@@ -324,6 +326,7 @@ public class Login extends javax.swing.JFrame {
                         AdminDashboard ad = new AdminDashboard();
                         ad.setVisible(true);
                         ad.pack();
+                        AdminDashboard.adminEmail.setText(email);
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        

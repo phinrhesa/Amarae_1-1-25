@@ -43,7 +43,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        adminEmail = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -139,11 +139,11 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
-        jLabel3.setText("admin@gmail.com");
+        adminEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        adminEmail.setForeground(new java.awt.Color(255, 255, 255));
+        adminEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        adminEmail.setText("admin@gmail.com");
 
         jLabel1.setFont(new java.awt.Font("Bodoni MT Condensed", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(213, 172, 95));
@@ -158,7 +158,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(587, 587, 587)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -168,7 +168,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(adminEmail)
                     .addComponent(jLabel2)))
         );
 
@@ -1107,6 +1107,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel adminEmail;
     private javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1126,7 +1127,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel24;
     public static javax.swing.JLabel jLabel25;
     public static javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel3;
     public static javax.swing.JLabel jLabel33;
     public static javax.swing.JLabel jLabel34;
     public static javax.swing.JLabel jLabel35;

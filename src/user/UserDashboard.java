@@ -39,7 +39,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        userEmail = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -109,11 +109,11 @@ public class UserDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
-        jLabel3.setText("user@gmail.com");
+        userEmail.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        userEmail.setForeground(new java.awt.Color(255, 255, 255));
+        userEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        userEmail.setText("user@gmail.com");
 
         jLabel1.setFont(new java.awt.Font("Bodoni MT Condensed", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(213, 172, 95));
@@ -128,7 +128,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(587, 587, 587)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -137,7 +137,7 @@ public class UserDashboard extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel3))
+                .addComponent(userEmail))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2))
@@ -646,7 +646,6 @@ public class UserDashboard extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel20;
     public static javax.swing.JLabel jLabel21;
     public static javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     public static javax.swing.JLabel jLabel7;
     public static javax.swing.JLabel jLabel8;
@@ -666,6 +665,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     public static javax.swing.JPanel jPanel8;
     public static javax.swing.JPanel jPanel9;
+    public static javax.swing.JLabel userEmail;
     // End of variables declaration//GEN-END:variables
 
     class RoundedPanel extends JPanel

@@ -72,7 +72,7 @@
                   <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="289" max="-2" attributes="0"/>
                   <EmptySpace min="587" pref="587" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="183" max="-2" attributes="0"/>
+                  <Component id="userEmail" min="-2" pref="183" max="-2" attributes="0"/>
                   <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="130" max="-2" attributes="0"/>
               </Group>
@@ -83,7 +83,7 @@
               <Component id="jLabel1" min="-2" pref="75" max="-2" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Component id="userEmail" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
@@ -110,7 +110,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="userEmail">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
@@ -124,6 +124,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="user@gmail.com"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
