@@ -623,7 +623,8 @@ public class ManageUsers extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSignUp2ActionPerformed
-
+    
+    //save
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         if (isEmpty()) {
             if (!check()) {

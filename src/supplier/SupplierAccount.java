@@ -1,6 +1,6 @@
-
 package supplier;
 
+import dao.SupplierDao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,8 +8,8 @@ import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import user.Login;
 
 /**
  *
@@ -17,12 +17,16 @@ import user.Login;
  */
 public class SupplierAccount extends javax.swing.JFrame {
 
+    SupplierDao supplier = new SupplierDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
-    
+    private int suppId;
+    String[] value = new String[6];
+
     public SupplierAccount() {
         initComponents();
+        init();
     }
 
     /**
@@ -50,9 +54,10 @@ public class SupplierAccount extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         btnSignUp = new javax.swing.JButton();
         btnSignUp2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
@@ -86,6 +91,11 @@ public class SupplierAccount extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,10 +103,14 @@ public class SupplierAccount extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
+            }
+        });
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyTyped(evt);
             }
         });
 
@@ -127,18 +141,22 @@ public class SupplierAccount extends javax.swing.JFrame {
         jLabel6.setText("Phone Number");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/notvisible.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/visible .png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Address  (State and Area)");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
 
         btnSignUp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSignUp.setText("Update");
@@ -156,6 +174,10 @@ public class SupplierAccount extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,13 +186,16 @@ public class SupplierAccount extends javax.swing.JFrame {
                 .addContainerGap(179, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(143, 143, 143))))
+                        .addGap(143, 143, 143))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(59, 59, 59))))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -206,15 +231,16 @@ public class SupplierAccount extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(179, 179, 179))
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(52, 52, 52)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,10 +274,7 @@ public class SupplierAccount extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel10))
                     .addContainerGap(52, Short.MAX_VALUE)))
         );
 
@@ -324,6 +347,103 @@ public class SupplierAccount extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init() {
+        suppId = supplier.getSupplierId(SupplierDashboard.supplierEmail.getText());
+        value = supplier.getSupplierValue(suppId);
+        setValue();
+
+    }
+
+    private void setValue() {
+        jTextField1.setText(value[0]);
+        jTextField2.setText(value[1]);
+        jTextField3.setText(value[2]);
+        jPasswordField1.setText(value[3]);
+        jTextField4.setText(value[4]);
+        jTextArea1.setText(value[5]);
+
+    }
+
+    public boolean isEmpty() {
+
+        if (jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email address is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField1.getText().matches("^.+@.+\\\\..+$")) {
+            JOptionPane.showMessageDialog(this, "Invalid Email address", "Warning", 2);
+            return false;
+
+        }
+        if (String.valueOf(jPasswordField1.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phone Number is required", "Warning", 2);
+            return false;
+        }
+
+        if (jTextField4.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "Phone Number is too long", "Warning", 2);
+            return false;
+        }
+        if (jTextField4.getText().length() < 10) {
+            JOptionPane.showMessageDialog(this, "Phone Number is too short", "Warning", 2);
+            return false;
+        }
+        if (jTextArea1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address is required", "Warning", 2);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean check() {
+        String newUsername = jTextField2.getText();
+        String newEmail = jTextField3.getText();
+        String newPhone = jTextField4.getText();
+        String oldUsername = value[1];
+        String oldEmail = value[2];
+        String oldPhone = value[4];
+
+        if (!newUsername.equals(oldUsername) && newEmail.equals(oldEmail) && newPhone.equals(oldPhone)) {
+            return false;
+        } else {
+            if (!newUsername.equals(oldUsername)) {
+                boolean x = supplier.isUsernameExist(newUsername);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This username already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+            if (!newEmail.equals(oldEmail)) {
+                boolean x = supplier.isEmailExist(newEmail);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This email already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+            if (!newPhone.equals(oldPhone)) {
+                boolean x = supplier.isPhoneExist(newPhone);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This phone number already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+        }
+        return false;
+    }
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -344,84 +464,93 @@ public class SupplierAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
+    //update
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
+        if (isEmpty()) {
+            if (!check()) {
+                int id = Integer.parseInt(jTextField1.getText());
+                String username = jTextField2.getText();
+                String email = jTextField3.getText();
+                String password = String.valueOf(jPasswordField1.getPassword());
+                String phone = jTextField4.getText();
+                String address = jTextArea1.getText();
+                supplier.update(id, username, email, password, phone, address);
+                this.dispose();
+                setDefault();
+
+            }
+        }
     }//GEN-LAST:event_btnSignUpActionPerformed
 
-    private void btnSignUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSignUp2ActionPerformed
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        setVisible(false);
+    private void setDefault() {
         SupplierDashboard.jPanel8.setBackground(primaryColor);
         SupplierDashboard.jPanel9.setBackground(primaryColor);
         SupplierDashboard.jLabel7.setForeground(textPrimaryColor);
         SupplierDashboard.jLabel16.setVisible(true);
-        SupplierDashboard.jLabel8.setVisible(false); 
+        SupplierDashboard.jLabel8.setVisible(false);
+    }
+
+    //delete
+    private void btnSignUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp2ActionPerformed
+        int id = Integer.parseInt(jTextField1.getText());
+        supplier.delete(id);
+        System.exit(0);
+
+    }//GEN-LAST:event_btnSignUp2ActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        setVisible(false);
+        setDefault();
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-         for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(SupplierAccount.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SupplierAccount.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }    }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
         }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SupplierAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SupplierAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SupplierAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SupplierAccount.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        jPasswordField1.setEchoChar((char) 0);
+        jLabel11.setVisible(false);
+        jLabel12.setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SupplierAccount().setVisible(true);
-            }
-        });
-    }
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        jPasswordField1.setEchoChar('*');
+        jLabel11.setVisible(true);
+        jLabel12.setVisible(false);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        char input = evt.getKeyChar();
+        if (!(input < '0' || input > '9') && input != '\b') {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Username doesn't contain any numbers!", "Warning", 2);
+
+        }    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }    }//GEN-LAST:event_jPasswordField1KeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
@@ -441,62 +570,65 @@ public class SupplierAccount extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
-class RoundedPanel extends JPanel
-    {
+class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-            
-        }
-public RoundedPanel(int radius, String hexColor) {
-        super();
-        this.cornerRadius = radius;
-        this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
-        setOpaque(false); // Make sure transparency for rounded corners
-    }
 
-    // Override paintComponent to draw the rounded panel
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Call the superclass to ensure proper painting
-
-        // Set up Graphics2D for better control over the painting process
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Use the background color (or the default if it's null)
-        if (backgroundColor != null) {
-            g2d.setColor(backgroundColor); // If a custom background color is set
-        } else {
-            g2d.setColor(getBackground()); // Otherwise, use the default background color
         }
 
-        // Fill the rounded rectangle
-        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+        public RoundedPanel(int radius, String hexColor) {
+            super();
+            this.cornerRadius = radius;
+            this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
+            setOpaque(false); // Make sure transparency for rounded corners
+        }
 
-        // Optionally, draw the border (if desired)
-        g2d.setColor(getForeground()); // Set the border color (usually the text color)
-        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
+        // Override paintComponent to draw the rounded panel
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g); // Call the superclass to ensure proper painting
+
+            // Set up Graphics2D for better control over the painting process
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Use the background color (or the default if it's null)
+            if (backgroundColor != null) {
+                g2d.setColor(backgroundColor); // If a custom background color is set
+            } else {
+                g2d.setColor(getBackground()); // Otherwise, use the default background color
+            }
+
+            // Fill the rounded rectangle
+            g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+
+            // Optionally, draw the border (if desired)
+            g2d.setColor(getForeground()); // Set the border color (usually the text color)
+            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
+        }
     }
-}
-
-
 
 }

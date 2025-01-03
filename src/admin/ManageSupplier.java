@@ -4,11 +4,7 @@
  */
 package admin;
 
-import static admin.AdminDashboard.jLabel25;
-import static admin.AdminDashboard.jLabel43;
-import static admin.AdminDashboard.jLabel44;
-import static admin.AdminDashboard.jPanel25;
-import static admin.AdminDashboard.jPanel26;
+import dao.SupplierDao;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,8 +12,9 @@ import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import user.Login;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,12 +22,16 @@ import user.Login;
  */
 public class ManageSupplier extends javax.swing.JFrame {
 
+    SupplierDao supplier = new SupplierDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
-    
+    DefaultTableModel model;
+    int rowIndex;
+
     public ManageSupplier() {
         initComponents();
+        supplierTable();
     }
 
     /**
@@ -60,18 +61,17 @@ public class ManageSupplier extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
         btnSignUp = new javax.swing.JButton();
         btnSignUp2 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         btnSignUp1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextField8 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -178,7 +178,6 @@ public class ManageSupplier extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("jPasswordField1");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
@@ -197,7 +196,7 @@ public class ManageSupplier extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Name");
+        jLabel3.setText("Username");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,16 +211,16 @@ public class ManageSupplier extends javax.swing.JFrame {
         jLabel6.setText("Phone Number");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/notvisible.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/visible .png"))); // NOI18N
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Address Line 2 (Country)");
-
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
             }
         });
 
@@ -243,13 +242,7 @@ public class ManageSupplier extends javax.swing.JFrame {
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("Address Line 1(State and Area)");
-
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
+        jLabel15.setText("Address");
 
         btnSignUp1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSignUp1.setText("Clear");
@@ -268,23 +261,33 @@ public class ManageSupplier extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Supplier ID", "Name", "Email", "Password", "Phone", "Address Line 1", "Address Line 2"
+                "Supplier ID", "Username", "Email", "Password", "Phone", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.setToolTipText("");
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Search");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -320,25 +323,16 @@ public class ManageSupplier extends javax.swing.JFrame {
                         .addContainerGap(268, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(6, 6, 6))
-                            .addComponent(jTextField7)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel15)
-                                    .addGap(106, 106, 106))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(108, 108, 108)))
-                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(71, 71, 71))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
@@ -372,13 +366,7 @@ public class ManageSupplier extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -386,18 +374,21 @@ public class ManageSupplier extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
-                        .addGap(4, 4, 4)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -408,7 +399,7 @@ public class ManageSupplier extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 760, 700));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 760, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -429,6 +420,62 @@ public class ManageSupplier extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    //color grid table
+    private void supplierTable() {
+        supplier.getSupplierValue(jTable1, "");
+        model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.decode("#000000"));
+        jTable1.setBackground(Color.decode("#FFFFFF"));
+        jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+    }
+
+    public boolean isEmpty() {
+        if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a supplier", "Warning", 2);
+            return false;
+        }
+
+        if (jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Email address is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField1.getText().matches("^.+@.+\\\\..+$")) {
+            JOptionPane.showMessageDialog(this, "Invalid Email address", "Warning", 2);
+            return false;
+
+        }
+        if (String.valueOf(jPasswordField1.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password is required", "Warning", 2);
+            return false;
+        }
+        if (jTextField4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Phone Number is required", "Warning", 2);
+            return false;
+        }
+
+        if (jTextField4.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "Phone Number is too long", "Warning", 2);
+            return false;
+        }
+        if (jTextField4.getText().length() < 10) {
+            JOptionPane.showMessageDialog(this, "Phone Number is too short", "Warning", 2);
+            return false;
+        }
+        if (jTextArea1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address is required", "Warning", 2);
+            return false;
+        }
+
+        return true;
+
+    }
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         setVisible(false);
@@ -459,97 +506,160 @@ public class ManageSupplier extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
+    //save
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        // TODO add your handling code here:
+        if (isEmpty()) {
+            if (!check()) {
+                int id = Integer.parseInt(jTextField1.getText());
+                String username = jTextField2.getText();
+                String email = jTextField3.getText();
+                String password = String.valueOf(jPasswordField1.getPassword());
+                String phone = jTextField4.getText();
+                String address = jTextArea1.getText();
+                supplier.update(id, username, email, password, phone, address);
+                jTable1.setModel(new DefaultTableModel(null, new Object[]{
+                    "User ID", "Username", "Email", "Password", "Phone Number", "Address"
+                }));
+                supplier.getSupplierValue(jTable1, "");
+                clear();
+
+            }
+        }
     }//GEN-LAST:event_btnSignUpActionPerformed
 
+    private boolean check() {
+        String newUsername = jTextField2.getText();
+        String newEmail = jTextField3.getText();
+        String newPhone = jTextField4.getText();
+        String oldUsername = model.getValueAt(rowIndex, 1).toString();
+        String oldEmail = model.getValueAt(rowIndex, 2).toString();
+        String oldPhone = model.getValueAt(rowIndex, 4).toString();
+
+        if (!newUsername.equals(oldUsername) && newEmail.equals(oldEmail) && newPhone.equals(oldPhone)) {
+            return false;
+        } else {
+            if (!newUsername.equals(oldUsername)) {
+                boolean x = supplier.isUsernameExist(newUsername);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This username already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+            if (!newEmail.equals(oldEmail)) {
+                boolean x = supplier.isEmailExist(newEmail);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This email already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+            if (!newPhone.equals(oldPhone)) {
+                boolean x = supplier.isPhoneExist(newPhone);
+                if (x) {
+                    JOptionPane.showMessageDialog(this, "This phone number already exists", "Warning", 2);
+
+                }
+                return x;
+            }
+        }
+        return false;
+    }
+
+//delete
     private void btnSignUp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp2ActionPerformed
-        // TODO add your handling code here:
+        if (jTextField1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a supplier", "Warning", 2);
+        } else {
+            int id = Integer.valueOf(jTextField1.getText());
+            supplier.delete(id);
+            jTable1.setModel(new DefaultTableModel(null, new Object[]{
+                "User ID", "Username", "Email", "Password", "Phone Number", "Address"
+            }));
+            supplier.getSupplierValue(jTable1, "");
+            clear();
+        }
+
     }//GEN-LAST:event_btnSignUp2ActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
-
+    //clear
     private void btnSignUp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUp1ActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_btnSignUp1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-  
-        for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ManageSupplier.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel3MousePressed
 
     private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel3MouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        jPasswordField1.setEchoChar((char) 0);
+        jLabel11.setVisible(false);
+        jLabel12.setVisible(true);
+    }//GEN-LAST:event_jLabel11MouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageSupplier().setVisible(true);
-            }
-        });
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        jPasswordField1.setEchoChar('*');
+        jLabel11.setVisible(true);
+        jLabel12.setVisible(false);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        model = (DefaultTableModel) jTable1.getModel();
+        rowIndex = jTable1.getSelectedRow();
+        jTextField1.setText(model.getValueAt(rowIndex, 0).toString());
+        jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
+        jTextField3.setText(model.getValueAt(rowIndex, 2).toString());
+        jPasswordField1.setText(model.getValueAt(rowIndex, 3).toString());
+        jTextField4.setText(model.getValueAt(rowIndex, 4).toString());
+        jTextArea1.setText(model.getValueAt(rowIndex, 5).toString());
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void clear() {
+        jTextField1.setText(String.valueOf(supplier.getMaxRow()));
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jPasswordField1.setText("");
+        jTextField4.setText("");
+        jTextArea1.setText("");
+
     }
 
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private javax.swing.JButton btnSignUp;
@@ -558,7 +668,6 @@ public class ManageSupplier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -573,69 +682,67 @@ public class ManageSupplier extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
-class RoundedPanel extends JPanel
-    {
+class RoundedPanel extends JPanel {
+
         private Color backgroundColor;
         private int cornerRadius = 15;
+
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
+
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
+
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-            
-        }
-public RoundedPanel(int radius, String hexColor) {
-        super();
-        this.cornerRadius = radius;
-        this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
-        setOpaque(false); // Make sure transparency for rounded corners
-    }
 
-    // Override paintComponent to draw the rounded panel
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Call the superclass to ensure proper painting
-
-        // Set up Graphics2D for better control over the painting process
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Use the background color (or the default if it's null)
-        if (backgroundColor != null) {
-            g2d.setColor(backgroundColor); // If a custom background color is set
-        } else {
-            g2d.setColor(getBackground()); // Otherwise, use the default background color
         }
 
-        // Fill the rounded rectangle
-        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+        public RoundedPanel(int radius, String hexColor) {
+            super();
+            this.cornerRadius = radius;
+            this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
+            setOpaque(false); // Make sure transparency for rounded corners
+        }
 
-        // Optionally, draw the border (if desired)
-        g2d.setColor(getForeground()); // Set the border color (usually the text color)
-        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
+        // Override paintComponent to draw the rounded panel
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g); // Call the superclass to ensure proper painting
+
+            // Set up Graphics2D for better control over the painting process
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Use the background color (or the default if it's null)
+            if (backgroundColor != null) {
+                g2d.setColor(backgroundColor); // If a custom background color is set
+            } else {
+                g2d.setColor(getBackground()); // Otherwise, use the default background color
+            }
+
+            // Fill the rounded rectangle
+            g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+
+            // Optionally, draw the border (if desired)
+            g2d.setColor(getForeground()); // Set the border color (usually the text color)
+            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
+        }
     }
-}
-
-
-
-
-
-
 
 }

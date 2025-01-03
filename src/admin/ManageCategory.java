@@ -1,10 +1,11 @@
-
 package admin;
 
+import dao.CategoryDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Login;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,13 +13,16 @@ import user.Login;
  */
 public class ManageCategory extends javax.swing.JFrame {
 
-      
+    CategoryDao cat = new CategoryDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
+    Color notEdit = new Color(204, 204, 204);// notedit
+    DefaultTableModel model;
 
     public ManageCategory() {
         initComponents();
+        init();
     }
 
     /**
@@ -259,6 +263,49 @@ public class ManageCategory extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init() {
+        jTextField4.setBackground(notEdit);
+        jTextField4.setText(String.valueOf(cat.getMaxRow()));
+        categoryTable();
+
+    }
+
+    //color grid table
+    private void categoryTable() {
+        cat.getCategoryValue(jTable2, "");
+        model = (DefaultTableModel) jTable2.getModel();
+        jTable2.setRowHeight(30);
+        jTable2.setShowGrid(true);
+        jTable2.setGridColor(Color.decode("#000000"));
+        jTable2.setBackground(Color.decode("#FFFFFF"));
+        jTable2.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+    }
+
+    private void clear() {
+        jTextField4.setText("");
+        jTextField4.setText(String.valueOf(cat.getMaxRow()));
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTable2.clearSelection();
+
+    }
+
+    private boolean isEmpty() {
+
+        if (jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Category name is required", "Warning", 2);
+            return false;
+
+        }
+        if (jTextField3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Description is required", "Warning", 2);
+            return false;
+
+        }
+        return true;
+
+    }
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -273,16 +320,32 @@ public class ManageCategory extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         setVisible(false);
-        AdminDashboard.jPanel10.setBackground(primaryColor);
-        AdminDashboard.jPanel11.setBackground(primaryColor);
-        AdminDashboard.jLabel8.setForeground(textPrimaryColor);
-        AdminDashboard. jLabel34.setVisible(true);
-        AdminDashboard.jLabel38.setVisible(false);
-        
+//        AdminDashboard.jPanel10.setBackground(primaryColor);
+//        AdminDashboard.jPanel11.setBackground(primaryColor);
+//        AdminDashboard.jLabel8.setForeground(textPrimaryColor);
+//        AdminDashboard. jLabel34.setVisible(true);
+//        AdminDashboard.jLabel38.setVisible(false);
+
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if (isEmpty()) {
+            int id = Integer.parseInt(jTextField4.getText());
+            String cname = jTextField2.getText();
+            String cdesc = jTextField3.getText();
+            if (!cat.isCategoryNameExist(cname)) {
+                cat.insert(id, cname, cdesc);
+                jTable2.setModel(new DefaultTableModel(null, new Object[]{
+                    "Category ID", "Category Name", "Description"}));
+                cat.getCategoryValue(jTable2, "");
+                clear();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Category name already exists", "Warning", 2);
+
+            }
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -294,25 +357,25 @@ public class ManageCategory extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-             for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ManageCategory.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ManageCategory.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }    }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
            this.setLocation(x - xx, y - xy);    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
