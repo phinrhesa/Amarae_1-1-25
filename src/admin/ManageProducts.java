@@ -1,15 +1,13 @@
-
 package admin;
 
 //import static admin.AdminDashboard.jLabel35;
 //import static admin.AdminDashboard.jLabel39;
-import static admin.AdminDashboard.jLabel9;
-import static admin.AdminDashboard.jPanel19;
-import static admin.AdminDashboard.jPanel20;
+import dao.ProductDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Login;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,13 +15,18 @@ import user.Login;
  */
 public class ManageProducts extends javax.swing.JFrame {
 
+    ProductDao product = new ProductDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
-    
-    
+    Color notEdit = new Color(204, 204, 204);// notedit
+    DefaultTableModel model;
+    int rowIndex;
+    String[] categories;
+
     public ManageProducts() {
         initComponents();
+        init();
     }
 
     /**
@@ -97,11 +100,21 @@ public class ManageProducts extends javax.swing.JFrame {
             }
         });
         jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -132,6 +145,11 @@ public class ManageProducts extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(217, 173, 154));
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(81, 7, 25));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -176,6 +194,11 @@ public class ManageProducts extends javax.swing.JFrame {
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
+            }
+        });
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
             }
         });
 
@@ -299,6 +322,58 @@ public class ManageProducts extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init() {
+        jTextField4.setBackground(notEdit);
+        jTextField4.setText(String.valueOf(product.getMaxRow()));
+        categories = new String[product.countCategories()];
+        setCat();
+        productTable();
+
+    }
+
+    private void setCat() {
+        categories = product.getCat();
+        for (String s : categories) {
+            jComboBox1.addItem(s);
+        }
+    }
+
+    private void clear() {
+        jTextField1.setText("");
+        jTextField4.setText(String.valueOf(product.getMaxRow()));
+        jTextField2.setText("");
+        jComboBox1.setSelectedIndex(0);
+        jTextField3.setText("0");
+        jTextField5.setText("0.0");
+        jTable2.clearSelection();
+    }
+
+    private void productTable() {
+        product.getProductValue(jTable2, "");
+        model = (DefaultTableModel) jTable2.getModel();
+        jTable2.setRowHeight(30);
+        jTable2.setShowGrid(true);
+        jTable2.setGridColor(Color.decode("#000000"));
+        jTable2.setBackground(Color.decode("#FFFFFF"));
+        jTable2.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+    }
+
+    private boolean isEmpty() {
+        if (jTextField2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Product name is required", "Warning", 2);
+            return false;
+        }
+        if (Integer.parseInt(jTextField3.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Please increase the product quantity", "Warning", 2);
+            return false;
+
+        }
+        if (jTextField5.getText().equals("0.0")) {
+            JOptionPane.showMessageDialog(this, "Product price is required", "Warning", 2);
+            return false;
+        }
+        return true;
+    }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -313,15 +388,82 @@ public class ManageProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (isEmpty()) {
+            int id = Integer.parseInt(jTextField4.getText());
+            String pname = jTextField2.getText();
+            String cat = jComboBox1.getSelectedItem().toString();
+            int qty = Integer.parseInt(jTextField3.getText());
+            if (isNumeric(jTextField5.getText())) {
+                double price = Double.parseDouble(jTextField5.getText());
+                if (!product.isIdExist(id)) {
+                    if (!product.isProCatExist(pname, cat)) {
+                        product.insert(id, pname, cat, qty, price);
+                        jTable2.setModel(new DefaultTableModel(null, new Object[]{
+                            "Product ID", "Product Name", "category", "Quantity", "Price"}));
+                        product.getProductValue(jTable2, "");
+                        clear();
 
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Product and Category already exists", "Warning", 2);
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Product id already exists", "Warning", 2);
+
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+//update button
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        if (isEmpty()) {
+            int id = Integer.parseInt(jTextField4.getText());
+            String pname = jTextField2.getText();
+            String cat = jComboBox1.getSelectedItem().toString();
+            int qty = Integer.parseInt(jTextField3.getText());
+            if (isNumeric(jTextField5.getText())) {
+                double price = Double.parseDouble(jTextField5.getText());
+                if (product.isIdExist(id)) {
+                    if (!check()) {
+                        product.update(id, pname, cat, qty, price);
+                        jTable2.setModel(new DefaultTableModel(null, new Object[]{
+                            "Product ID", "Product Name", "category", "Quantity", "Price"}));
+                        product.getProductValue(jTable2, "");
+                        clear();
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Product id already exists", "Warning", 2);
+
+                }
+
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    //updatae product button
+    private boolean check() {
+        String newProduct = jTextField2.getText();
+        String oldProduct = model.getValueAt(rowIndex, 1).toString();
+        String newCategory = jComboBox1.getSelectedItem().toString();
+        String oldCategory = model.getValueAt(rowIndex, 2).toString();
+
+        if (newProduct.equals(oldProduct) && newCategory.equals(oldCategory)) {
+            return false;
+        } else {
+            boolean x = product.isProCatExist(newProduct, oldCategory);
+            if (x) {
+                JOptionPane.showMessageDialog(this, "Product name and Category already exist", "Warning", 2);
+                return x;
+            }
+        }
+        return false;
+    }
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -341,66 +483,85 @@ public class ManageProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-            for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ManageProducts.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ManageProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }    }//GEN-LAST:event_jTextField3KeyTyped
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageProducts().setVisible(true);
+    //table click
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        model = (DefaultTableModel) jTable2.getModel();
+        rowIndex = jTable2.getSelectedRow();
+        jTextField4.setText(model.getValueAt(rowIndex, 0).toString());
+        jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
+
+        String category = model.getValueAt(rowIndex, 2).toString();
+        for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+            if (jComboBox1.getItemAt(i).equals(category)) {
+                jComboBox1.setSelectedIndex(i);
+                break;
             }
-        });
+        }
+        jTextField3.setText(model.getValueAt(rowIndex, 3).toString());
+        jTextField5.setText(model.getValueAt(rowIndex, 4).toString());
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    //search
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTable2.setModel(new DefaultTableModel(null, new Object[]{"Product ID", "Product Name", "category", "Quantity", "Price"}));
+        product.getProductValue(jTable2, jTextField1.getText());
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    //delete button
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int id = Integer.parseInt(jTextField4.getText());
+        if (product.isIdExist(id)) {
+            product.delete(id);
+            jTable2.setModel(new DefaultTableModel(null, new Object[]{
+                "Product ID", "Product Name", "category", "Quantity", "Price"}));
+            product.getProductValue(jTable2, "");
+            clear();
+        } else {
+            JOptionPane.showMessageDialog(this, "Product doesn't exist", "Warning", 2);
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private boolean isNumeric(String s) {
+        try {
+            double d = Double.parseDouble(s);
+            return true;
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "" + ex + "\nNumeric value is required for the price field");
+        }
+        return false;
     }
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

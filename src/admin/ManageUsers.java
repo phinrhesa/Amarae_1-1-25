@@ -726,9 +726,7 @@ public class ManageUsers extends javax.swing.JFrame {
         }));
         user.getUsersValue(jTable1, jTextField8.getText());    }//GEN-LAST:event_jTextField8KeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
+   
     private boolean check() {
         String newEmail = jTextField3.getText();
         String newPhone = jTextField4.getText();

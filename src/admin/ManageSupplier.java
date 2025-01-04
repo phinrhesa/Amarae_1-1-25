@@ -281,6 +281,12 @@ public class ManageSupplier extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField8KeyReleased(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Search");
@@ -647,6 +653,13 @@ public class ManageSupplier extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jTextField8KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyReleased
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{
+            "User ID", "Username", "Email", "Password", "Phone Number", "Address"
+        }));
+        supplier.getSupplierValue(jTable1, jTextField8.getText());
+    }//GEN-LAST:event_jTextField8KeyReleased
+
     private void clear() {
         jTextField1.setText(String.valueOf(supplier.getMaxRow()));
         jTextField2.setText("");
@@ -657,9 +670,7 @@ public class ManageSupplier extends javax.swing.JFrame {
 
     }
 
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private javax.swing.JButton btnSignUp;
