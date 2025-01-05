@@ -4,20 +4,12 @@
  */
 package admin;
 
-import static admin.AdminDashboard.jLabel26;
-import static admin.AdminDashboard.jLabel45;
-import static admin.AdminDashboard.jLabel46;
-import static admin.AdminDashboard.jPanel27;
-import static admin.AdminDashboard.jPanel28;
+import dao.PurchaseDao;
+import dao.SupplierDao;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.LayoutManager;
-import java.awt.RenderingHints;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
-import user.Login;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,13 +17,17 @@ import user.Login;
  */
 public class SelectSupplier extends javax.swing.JFrame {
 
+    DefaultTableModel model;
+    PurchaseDao purchaseDao = new PurchaseDao();
+    SupplierDao supplierDao = new SupplierDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
+    String[] supps;
 
-        
     public SelectSupplier() {
         initComponents();
+        init();
     }
 
     /**
@@ -206,17 +202,41 @@ public class SelectSupplier extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init() {
+        supps = new String[supplierDao.countSuppliers()];
+        setSuppliers();
+        suppTable();
+
+    }
+
+    private void setSuppliers() {
+        supps = supplierDao.getSuppliers();
+        for (String s : supps) {
+            jComboBox1.addItem(s);
+        }
+    }
+
+    private void suppTable() {
+        purchaseDao.getProductValue(jTable1, "");
+        model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.decode("#000000"));
+        jTable1.setBackground(Color.decode("#FFFFFF"));
+        jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+
+    }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         setVisible(false);
-        AdminDashboard.jPanel27.setBackground(primaryColor);
-        AdminDashboard.jPanel28.setBackground(primaryColor);
-        AdminDashboard.jLabel26.setForeground(textPrimaryColor);
-        AdminDashboard.jLabel45.setVisible(false);
-        AdminDashboard.jLabel46.setVisible(true);
+//        AdminDashboard.jPanel27.setBackground(primaryColor);
+//        AdminDashboard.jPanel28.setBackground(primaryColor);
+//        AdminDashboard.jLabel26.setForeground(textPrimaryColor);
+//        AdminDashboard.jLabel45.setVisible(false);
+//        AdminDashboard.jLabel46.setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -224,27 +244,27 @@ public class SelectSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-  
-        for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(SelectSupplier.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SelectSupplier.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }    }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
@@ -294,8 +314,5 @@ public class SelectSupplier extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
-   
-
 
 }

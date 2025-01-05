@@ -48,6 +48,7 @@ public class ProductDao {
         }
         return total;
     }
+ 
     public  String[] getCat(){
         String[] categories = new String[countCategories()];
         try {
