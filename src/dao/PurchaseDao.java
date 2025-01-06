@@ -113,7 +113,6 @@ public class PurchaseDao {
             Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     //get specific user purchased products
     public void getProductValue(JTable table, String search, int uid) {
@@ -124,23 +123,20 @@ public class PurchaseDao {
             ps.setInt(2, uid);
             rs = ps.executeQuery();
             DefaultTableModel model = (DefaultTableModel) table.getModel();
+
             Object[] row;
             while (rs.next()) {
-                row = new Object[14];
+                row = new Object[10];
                 row[0] = rs.getInt(1);
-                row[1] = rs.getInt(2);
-                row[2] = rs.getString(3);
-                row[3] = rs.getString(4);                
-                row[4] = rs.getInt(5);
-                row[5] = rs.getString(6);
-                row[6] = rs.getInt(7);
-                row[7] = rs.getDouble(8);
-                row[8] = rs.getDouble(9);
-                row[9] = rs.getString(10);
-                row[10] = rs.getString(11);
-                row[11] = rs.getString(12);
-                row[12] = rs.getString(13);
-                row[13] = rs.getString(14);                
+                row[1] = rs.getInt(5);
+                row[2] = rs.getString(6);
+                row[3] = rs.getInt(7);
+                row[4] = rs.getDouble(8);
+                row[5] = rs.getDouble(9);
+                row[6] = rs.getString(10);
+                row[7] = rs.getString(12);
+                row[8] = rs.getString(13);
+                row[9] = rs.getString(14);
                 model.addRow(row);
 
             }
@@ -150,8 +146,8 @@ public class PurchaseDao {
         }
 
     }
-    
-      public void getProductValue(JTable table, String search) {
+
+    public void getProductValue(JTable table, String search) {
         String sql = "select * from purchase where concat(id, pid, product_name) like ? and status ='Pending' order by id desc";
         try {
             ps = con.prepareStatement(sql);
@@ -164,7 +160,7 @@ public class PurchaseDao {
                 row[0] = rs.getInt(1);
                 row[1] = rs.getInt(2);
                 row[2] = rs.getString(3);
-                row[3] = rs.getString(4);                
+                row[3] = rs.getString(4);
                 row[4] = rs.getInt(5);
                 row[5] = rs.getString(6);
                 row[6] = rs.getInt(7);
@@ -174,7 +170,7 @@ public class PurchaseDao {
                 row[10] = rs.getString(11);
                 row[11] = rs.getString(12);
                 row[12] = rs.getString(13);
-                row[13] = rs.getString(14);                
+                row[13] = rs.getString(14);
                 model.addRow(row);
 
             }

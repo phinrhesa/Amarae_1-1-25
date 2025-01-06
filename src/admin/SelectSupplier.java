@@ -102,6 +102,11 @@ public class SelectSupplier extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -225,6 +230,23 @@ public class SelectSupplier extends javax.swing.JFrame {
         jTable1.setBackground(Color.decode("#FFFFFF"));
         jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
 
+        // Set column widths
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100); // Purchase ID
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100); // User ID
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100); // User Name
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);  // User Phone
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(100); // Product Id
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(100); // Product Name
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(100); // Qty
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(100); // Price
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(100); // Total
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(100); // Purchase Details
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(250); // Address
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(100); // Received date
+        jTable1.getColumnModel().getColumn(12).setPreferredWidth(100); // Supplier Name
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(100); // Status
+        
+
     }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -266,6 +288,14 @@ public class SelectSupplier extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "Product ID", "Product Name",
+            "Quantity", "Price", "Total", "Purchase Date", "Received Date", "Supplier Name", "Status"}));
+        purchaseDao.getProductValue(jTable1, jTextField1.getText());
+
+
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
