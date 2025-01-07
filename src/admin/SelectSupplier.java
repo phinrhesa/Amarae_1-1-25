@@ -9,6 +9,7 @@ import dao.SupplierDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +25,7 @@ public class SelectSupplier extends javax.swing.JFrame {
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
     String[] supps;
+    int rowIndex = 0;
 
     public SelectSupplier() {
         initComponents();
@@ -91,6 +93,11 @@ public class SelectSupplier extends javax.swing.JFrame {
             }
         });
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -122,6 +129,13 @@ public class SelectSupplier extends javax.swing.JFrame {
         jLabel2.setText("Supplier ");
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jComboBox1.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+                jComboBox1AncestorMoved(evt);
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(81, 7, 25));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -137,6 +151,11 @@ public class SelectSupplier extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(217, 173, 154));
         jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,12 +170,9 @@ public class SelectSupplier extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,12 +180,16 @@ public class SelectSupplier extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 60, Short.MAX_VALUE)))
+                        .addGap(0, 239, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +265,6 @@ public class SelectSupplier extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(11).setPreferredWidth(100); // Received date
         jTable1.getColumnModel().getColumn(12).setPreferredWidth(100); // Supplier Name
         jTable1.getColumnModel().getColumn(13).setPreferredWidth(100); // Status
-        
 
     }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -254,15 +273,28 @@ public class SelectSupplier extends javax.swing.JFrame {
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         setVisible(false);
-//        AdminDashboard.jPanel27.setBackground(primaryColor);
-//        AdminDashboard.jPanel28.setBackground(primaryColor);
-//        AdminDashboard.jLabel26.setForeground(textPrimaryColor);
-//        AdminDashboard.jLabel45.setVisible(false);
-//        AdminDashboard.jLabel46.setVisible(true);
+        AdminDashboard.jPanel27.setBackground(primaryColor);
+        AdminDashboard.jPanel28.setBackground(primaryColor);
+        AdminDashboard.jLabel26.setForeground(textPrimaryColor);
+        AdminDashboard.jLabel45.setVisible(false);
+        AdminDashboard.jLabel46.setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        model = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRow() >= 0) {
+            rowIndex = jTable1.getSelectedRow();
+            int id = Integer.parseInt(model.getValueAt(rowIndex, 0).toString());
+            String supp = jComboBox1.getSelectedItem().toString();
+            String status = "On the way";
+            purchaseDao.setSuppStatus(id, supp, status);
+            jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "User Name", "User Phone", "Product ID", "Product Name",
+                 "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
+            purchaseDao.getProductValue(jTable1, "");
+        }else{
+            JOptionPane.showMessageDialog(this, " No product has been selected", "Warning", 2);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -290,47 +322,28 @@ public class SelectSupplier extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "Product ID", "Product Name",
-            "Quantity", "Price", "Total", "Purchase Date", "Received Date", "Supplier Name", "Status"}));
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "User Name", "User Phone", "Product ID", "Product Name",
+                 "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
         purchaseDao.getProductValue(jTable1, jTextField1.getText());
 
 
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SelectSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SelectSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SelectSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SelectSupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jTextField1.setText("");
+        jTable1.clearSelection();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SelectSupplier().setVisible(true);
-            }
-        });
-    }
+    private void jComboBox1AncestorMoved(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_jComboBox1AncestorMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1AncestorMoved
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        model = (DefaultTableModel) jTable1.getModel();
+        rowIndex = jTable1.getSelectedRow();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

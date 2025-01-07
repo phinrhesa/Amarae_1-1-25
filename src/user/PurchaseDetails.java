@@ -5,6 +5,7 @@
 package user;
 
 import dao.PurchaseDao;
+import dao.Statistics;
 import dao.UserDao;
 import java.awt.Color;
 import java.text.ParseException;
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PurchaseDetails extends javax.swing.JFrame {
 
+    Statistics statistics = new Statistics();
     PurchaseDao pd = new PurchaseDao();
     UserDao user = new UserDao();
     Color textPrimaryColor = new Color(217, 173, 154);
@@ -312,6 +314,7 @@ public class PurchaseDetails extends javax.swing.JFrame {
                     jTable2.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "Product ID", "Product Name",
                         "Quantity", "Price", "Total", "Purchase Date", "Received Date", "Supplier Name", "Status"}));
                     pd.getProductValue(jTable2, "", uId);
+                    statistics.user(user.getUserId(String.valueOf(UserDashboard.userEmail.getText())));
                     clear();
 
                 }

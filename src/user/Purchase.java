@@ -6,6 +6,8 @@ package user;
 
 import dao.ProductDao;
 import dao.PurchaseDao;
+import dao.Statistics;
+import dao.UserDao;
 import java.awt.Color;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
@@ -24,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Purchase extends javax.swing.JFrame {
 
+    Statistics statistics = new Statistics();
+    UserDao user = new UserDao();
     PurchaseDao purchaseDao = new PurchaseDao();
     ProductDao productDao = new ProductDao();
     Color textPrimaryColor = new Color(217, 173, 154);
@@ -380,7 +384,6 @@ public class Purchase extends javax.swing.JFrame {
     }
 
     private void purchaseTable() {
-        //cat.getCategoryValue(jTable2, "");
         model = (DefaultTableModel) jTable2.getModel();
         jTable2.setRowHeight(30);
         jTable2.setShowGrid(true);
@@ -539,6 +542,7 @@ public class Purchase extends javax.swing.JFrame {
                 int newQuantity = purchaseDao.getQty(pid) - q;
                 purchaseDao.qtyUpdate(pid, newQuantity);
             }
+            statistics.user(user.getUserId(email));
             JOptionPane.showMessageDialog(this, "Successfully purchased");
             setDefault();
 

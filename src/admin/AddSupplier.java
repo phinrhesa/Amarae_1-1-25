@@ -1,5 +1,6 @@
 package admin;
 
+import dao.Statistics;
 import dao.SupplierDao;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -22,6 +23,8 @@ public class AddSupplier extends javax.swing.JFrame {
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
     Color notEdit = new Color(204, 204, 204);
+    Statistics statistics = new Statistics();
+    
 
     public AddSupplier() {
         initComponents();
@@ -362,6 +365,8 @@ public class AddSupplier extends javax.swing.JFrame {
     private void init() {
         jTextField1.setBackground(notEdit);
         jTextField1.setText(String.valueOf(supplier.getMaxRow()));
+        setLocation(650, 200); // (higher(paright), lower(pataas))
+
 
     }
 
@@ -372,6 +377,7 @@ public class AddSupplier extends javax.swing.JFrame {
         jPasswordField1.setText("");
         jTextField4.setText("");
         jTextArea1.setText("");
+        statistics.admin();
 
     }
 

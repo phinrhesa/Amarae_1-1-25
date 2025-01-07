@@ -69,7 +69,6 @@ public class SupplierDao {
         return false;
     }
     //check supplier username already exists
-
     public boolean isUsernameExist(String name) {
         try {
             ps = con.prepareStatement("select * from supplier where sname = ?");
@@ -189,6 +188,24 @@ public class SupplierDao {
             Logger.getLogger(SupplierDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return id;
+    }
+
+    //get supplier username (delivery26_4;58)
+    public String getSupplierName(String email) {
+        String supplierName = "";
+        try {
+            ps = con.prepareStatement("select sname from supplier where semail = ?");
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                supplierName = rs.getString(1);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SupplierDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return supplierName;
     }
 
     //get supplier value

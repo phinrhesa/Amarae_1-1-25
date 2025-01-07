@@ -4,15 +4,11 @@
  */
 package admin;
 
-import static admin.AdminDashboard.jLabel33;
-import static admin.AdminDashboard.jLabel37;
-import static admin.AdminDashboard.jLabel7;
-import static admin.AdminDashboard.jPanel8;
-import static admin.AdminDashboard.jPanel9;
+import dao.PurchaseDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Login;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,9 +19,12 @@ public class Transaction extends javax.swing.JFrame {
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
-    
+    DefaultTableModel model;
+    PurchaseDao purchaseDao = new PurchaseDao();
+
     public Transaction() {
         initComponents();
+        transactionTable();
     }
 
     /**
@@ -95,6 +94,11 @@ public class Transaction extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -160,6 +164,26 @@ public class Transaction extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void transactionTable() {
+        purchaseDao.transaction(jTable1, "");
+        model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.decode("#000000"));
+        jTable1.setBackground(Color.decode("#FFFFFF"));
+        jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+
+        // Set column widths
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100); // Purchase ID
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100); // User ID
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100); // User Name
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);  // User Phone
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(100); // Product Id
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(100); // Product Name
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(100); // Qty
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(100); // Price
+    }
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -174,65 +198,38 @@ public class Transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
- 
-        for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Transaction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Transaction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Transaction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Transaction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "Product ID", 
+            "Quantity", "Price", "Total", "Received Date", "Supplier Name"}));
+        purchaseDao.transaction(jTable1, jTextField1.getText());
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Transaction().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;

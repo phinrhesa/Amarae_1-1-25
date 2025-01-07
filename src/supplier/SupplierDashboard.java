@@ -65,7 +65,7 @@ public class SupplierDashboard extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jDel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -410,9 +410,9 @@ public class SupplierDashboard extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(41, 0, 10));
         jLabel14.setText("My Deliveries:");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("0");
+        jDel.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
+        jDel.setForeground(new java.awt.Color(0, 0, 0));
+        jDel.setText("0");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -422,8 +422,8 @@ public class SupplierDashboard extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(654, Short.MAX_VALUE))
+                .addComponent(jDel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(578, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +431,7 @@ public class SupplierDashboard extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jDel))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -561,12 +561,12 @@ public class SupplierDashboard extends javax.swing.JFrame {
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel jDel;
     private javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     public static javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     public static javax.swing.JLabel jLabel16;
     public static javax.swing.JLabel jLabel17;
     public static javax.swing.JLabel jLabel18;

@@ -4,6 +4,7 @@
  */
 package admin;
 
+import dao.Statistics;
 import dao.UserDao;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -29,6 +30,8 @@ public class ManageUsers extends javax.swing.JFrame {
     int xx, xy;
     DefaultTableModel model;
     int rowIndex;
+    Statistics statistics = new Statistics();
+    
 
     public ManageUsers() {
         initComponents();
@@ -557,6 +560,7 @@ public class ManageUsers extends javax.swing.JFrame {
         jTextField5.setText("");
         jTextArea1.setText("");
         jTable1.clearSelection();
+        statistics.admin();
 
     }
 

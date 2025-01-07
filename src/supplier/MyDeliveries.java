@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package supplier;
 
+import dao.PurchaseDao;
+import dao.SupplierDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Login;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,12 +13,17 @@ import user.Login;
  */
 public class MyDeliveries extends javax.swing.JFrame {
 
+    SupplierDao supplierDao = new SupplierDao();
+    PurchaseDao purchaseDao = new PurchaseDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
-    
+    DefaultTableModel model;
+    private String SupplierName;
+
     public MyDeliveries() {
         initComponents();
+        init();
     }
 
     /**
@@ -91,6 +94,11 @@ public class MyDeliveries extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,6 +166,39 @@ public class MyDeliveries extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void init() {
+        SupplierName = supplierDao.getSupplierName(SupplierDashboard.supplierEmail.getText());
+        myDeliveredTable();
+
+    }
+
+    private void myDeliveredTable() {
+        purchaseDao.getSuppDeliProducts(jTable1, "", SupplierName);
+        model = (DefaultTableModel) jTable1.getModel();
+        jTable1.setRowHeight(30);
+        jTable1.setShowGrid(true);
+        jTable1.setGridColor(Color.decode("#000000"));
+        jTable1.setBackground(Color.decode("#FFFFFF"));
+        jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+
+        // Set column widths
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100); // Purchase ID
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100); // User ID
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100); // User Name
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);  // User Phone
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(100); // Product Id
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(100); // Product Name
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(100); // Qty
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(100); // Price
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(100); // Total
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(100); // Purchase Details
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(250); // Address
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(100); // Received date
+        jTable1.getColumnModel().getColumn(12).setPreferredWidth(100); // Supplier Name
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(100); // Status
+    }
+
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -169,66 +210,41 @@ public class MyDeliveries extends javax.swing.JFrame {
         SupplierDashboard.jLabel18.setForeground(textPrimaryColor);
         SupplierDashboard.jLabel19.setVisible(false);
         SupplierDashboard.jLabel20.setVisible(true);
-        
+
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-            for(double i = 0.1; i<=1.0; i+=0.1){
-                String s = ""+i;
-                float f = Float.parseFloat(s);
-                this.setOpacity(f);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(MyDeliveries.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        for (double i = 0.1; i <= 1.0; i += 0.1) {
+            String s = "" + i;
+            float f = Float.parseFloat(s);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MyDeliveries.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }    }//GEN-LAST:event_formWindowOpened
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-             xx = evt.getX();
-             xy = evt.getY();
+        xx = evt.getX();
+        xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-           int x = evt.getXOnScreen();
-           int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MyDeliveries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MyDeliveries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MyDeliveries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MyDeliveries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+//search
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "User Name", "User Phone", "Product ID", "Product Name",
+            "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
+        purchaseDao.getSuppDeliProducts(jTable1, jTextField1.getText(), SupplierName);
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MyDeliveries().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_jTextField1KeyReleased
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel4;

@@ -62,15 +62,15 @@ public class UserDashboard extends javax.swing.JFrame {
         jPanel7 = new RoundedPanel(50, "#510719");
         jPanel12 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        jPur = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        jPro = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jCat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(98, 123, 118));
@@ -387,9 +387,9 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(41, 0, 10));
         jLabel11.setText("Total Purchase:");
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("0.0");
+        jPur.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
+        jPur.setForeground(new java.awt.Color(0, 0, 0));
+        jPur.setText("0.0");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -399,8 +399,8 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(638, Short.MAX_VALUE))
+                .addComponent(jPur, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +408,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel17))
+                    .addComponent(jPur))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -445,9 +445,9 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(41, 0, 10));
         jLabel13.setText("Total Products:");
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setText("0");
+        jPro.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        jPro.setForeground(new java.awt.Color(0, 0, 0));
+        jPro.setText("0");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -457,8 +457,8 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(641, Short.MAX_VALUE))
+                .addComponent(jPro, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(467, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,7 +466,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel16))
+                    .addComponent(jPro))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -478,9 +478,9 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(41, 0, 10));
         jLabel14.setText("Total Categories:");
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("0");
+        jCat.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
+        jCat.setForeground(new java.awt.Color(0, 0, 0));
+        jCat.setText("0");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -490,8 +490,8 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(620, Short.MAX_VALUE))
+                .addComponent(jCat, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(454, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,7 +499,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(jCat))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -597,15 +597,13 @@ public class UserDashboard extends javax.swing.JFrame {
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel jCat;
     private javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     public static javax.swing.JLabel jLabel18;
     public static javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -631,6 +629,8 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     public static javax.swing.JPanel jPanel8;
     public static javax.swing.JPanel jPanel9;
+    public static javax.swing.JLabel jPro;
+    public static javax.swing.JLabel jPur;
     public static javax.swing.JLabel userEmail;
     // End of variables declaration//GEN-END:variables
 

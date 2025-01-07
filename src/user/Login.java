@@ -3,6 +3,7 @@ package user;
 
 import admin.AdminDashboard;
 import connection.MyConnection;
+import dao.Statistics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -17,9 +18,9 @@ import supplier.SupplierDashboard;
 public class Login extends javax.swing.JFrame {
 
     private ButtonGroup bg = new ButtonGroup();
-
     int xx, xy;
-
+    Statistics statistics = new Statistics();
+    
     public Login() {
         initComponents();
         init();
@@ -288,7 +289,8 @@ public class Login extends javax.swing.JFrame {
                         UserDashboard ud = new UserDashboard();
                         ud.setVisible(true);
                         ud.pack();
-                        UserDashboard.userEmail.setText(email);                      
+                        UserDashboard.userEmail.setText(email); 
+                        statistics.user(rs.getInt(1));
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        
@@ -309,6 +311,7 @@ public class Login extends javax.swing.JFrame {
                         sd.setVisible(true);
                         sd.pack();
                         SupplierDashboard.supplierEmail.setText(email);
+                        statistics.supplier(rs.getString(2));
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        
@@ -329,6 +332,7 @@ public class Login extends javax.swing.JFrame {
                         ad.setVisible(true);
                         ad.pack();
                         AdminDashboard.adminEmail.setText(email);
+                        statistics.admin();
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(this, "Incorrect email or password","Login Failed", 2);                        

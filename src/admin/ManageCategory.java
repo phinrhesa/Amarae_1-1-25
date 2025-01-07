@@ -1,6 +1,7 @@
 package admin;
 
 import dao.CategoryDao;
+import dao.Statistics;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,8 @@ public class ManageCategory extends javax.swing.JFrame {
     Color notEdit = new Color(204, 204, 204);// notedit
     DefaultTableModel model;
     int rowIndex;
+    Statistics statistics = new Statistics();
+    
 
     public ManageCategory() {
         initComponents();
@@ -303,6 +306,7 @@ public class ManageCategory extends javax.swing.JFrame {
         jTextField2.setText("");
         jTextField3.setText("");
         jTable2.clearSelection();
+        statistics.admin();
 
     }
 

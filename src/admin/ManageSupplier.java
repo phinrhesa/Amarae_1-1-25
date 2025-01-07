@@ -4,6 +4,7 @@
  */
 package admin;
 
+import dao.Statistics;
 import dao.SupplierDao;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -28,6 +29,8 @@ public class ManageSupplier extends javax.swing.JFrame {
     int xx, xy;
     DefaultTableModel model;
     int rowIndex;
+    Statistics statistics = new Statistics();
+    
 
     public ManageSupplier() {
         initComponents();
@@ -667,6 +670,7 @@ public class ManageSupplier extends javax.swing.JFrame {
         jPasswordField1.setText("");
         jTextField4.setText("");
         jTextArea1.setText("");
+        statistics.admin();
 
     }
 
