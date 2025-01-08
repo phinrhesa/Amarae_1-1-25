@@ -4,7 +4,7 @@
  */
 package admin;
 
-import dao.PurchaseDao;
+import dao.CartDao;
 import dao.SupplierDao;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class SelectSupplier extends javax.swing.JFrame {
 
     DefaultTableModel model;
-    PurchaseDao purchaseDao = new PurchaseDao();
+    CartDao purchaseDao = new CartDao();
     SupplierDao supplierDao = new SupplierDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);

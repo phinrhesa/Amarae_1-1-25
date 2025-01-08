@@ -4,7 +4,7 @@
  */
 package user;
 
-import dao.PurchaseDao;
+import dao.CartDao;
 import dao.Statistics;
 import dao.UserDao;
 import java.awt.Color;
@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class PurchaseDetails extends javax.swing.JFrame {
 
     Statistics statistics = new Statistics();
-    PurchaseDao pd = new PurchaseDao();
+    CartDao pd = new CartDao();
     UserDao user = new UserDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);

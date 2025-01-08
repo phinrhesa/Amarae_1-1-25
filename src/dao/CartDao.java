@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class PurchaseDao {
+public class CartDao {
 
     Connection con = MyConnection.getConnection();
     PreparedStatement ps;
@@ -30,7 +30,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return row + 1;
     }
@@ -50,7 +50,7 @@ public class PurchaseDao {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return value;
     }
@@ -79,7 +79,7 @@ public class PurchaseDao {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -95,7 +95,7 @@ public class PurchaseDao {
                 qty = rs.getInt(1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return qty;
     }
@@ -110,7 +110,7 @@ public class PurchaseDao {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -125,7 +125,7 @@ public class PurchaseDao {
                 JOptionPane.showMessageDialog(null, "Supplier successfully selectd..");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -141,7 +141,7 @@ public class PurchaseDao {
                 JOptionPane.showMessageDialog(null, "Product successfully delivered");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -173,7 +173,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -207,7 +207,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -243,7 +243,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -279,7 +279,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -296,7 +296,7 @@ public class PurchaseDao {
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -325,7 +325,7 @@ public class PurchaseDao {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(PurchaseDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

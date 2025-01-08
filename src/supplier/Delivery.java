@@ -4,7 +4,7 @@
  */
 package supplier;
 
-import dao.PurchaseDao;
+import dao.CartDao;
 import dao.Statistics;
 import dao.SupplierDao;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class Delivery extends javax.swing.JFrame {
 
     SupplierDao supplierDao = new SupplierDao();
-    PurchaseDao purchaseDao = new PurchaseDao();
+    CartDao purchaseDao = new CartDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     Statistics statistics = new Statistics();

@@ -5,7 +5,7 @@
 package user;
 
 import dao.ProductDao;
-import dao.PurchaseDao;
+import dao.CartDao;
 import dao.Statistics;
 import dao.UserDao;
 import java.awt.Color;
@@ -28,7 +28,7 @@ public class Purchase extends javax.swing.JFrame {
 
     Statistics statistics = new Statistics();
     UserDao user = new UserDao();
-    PurchaseDao purchaseDao = new PurchaseDao();
+    CartDao purchaseDao = new CartDao();
     ProductDao productDao = new ProductDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);

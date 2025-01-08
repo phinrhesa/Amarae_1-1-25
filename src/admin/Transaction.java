@@ -4,7 +4,7 @@
  */
 package admin;
 
-import dao.PurchaseDao;
+import dao.CartDao;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +20,7 @@ public class Transaction extends javax.swing.JFrame {
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
     DefaultTableModel model;
-    PurchaseDao purchaseDao = new PurchaseDao();
+    CartDao purchaseDao = new CartDao();
 
     public Transaction() {
         initComponents();
