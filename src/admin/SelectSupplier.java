@@ -180,7 +180,7 @@ public class SelectSupplier extends javax.swing.JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(37, 37, 37)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 239, Short.MAX_VALUE)))
+                        .addGap(0, 304, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -209,7 +209,7 @@ public class SelectSupplier extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,6 +231,8 @@ public class SelectSupplier extends javax.swing.JFrame {
         supps = new String[supplierDao.countSuppliers()];
         setSuppliers();
         suppTable();
+        setLocation(419, 90); // (higher(paright), higher(pababa))
+        
 
     }
 

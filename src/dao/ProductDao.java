@@ -18,7 +18,7 @@ public class ProductDao {
     PreparedStatement ps;
     Statement st;
     ResultSet rs;
-    
+
     //get product table max row
     public int getMaxRow() {
         int row = 0;
@@ -34,13 +34,13 @@ public class ProductDao {
         }
         return row + 1;
     }
-    
-    public int countCategories(){
+
+    public int countCategories() {
         int total = 0;
         try {
             st = con.createStatement();
             rs = st.executeQuery("select count(*) as 'total' from category");
-            if(rs.next()){
+            if (rs.next()) {
                 total = rs.getInt(1);
             }
         } catch (SQLException ex) {
@@ -48,14 +48,14 @@ public class ProductDao {
         }
         return total;
     }
- 
-    public  String[] getCat(){
+
+    public String[] getCat() {
         String[] categories = new String[countCategories()];
         try {
             st = con.createStatement();
             rs = st.executeQuery("select * from category");
             int i = 0;
-            while(rs.next()){
+            while (rs.next()) {
                 categories[i] = rs.getString(2);
                 i++;
             }
@@ -64,7 +64,7 @@ public class ProductDao {
         }
         return categories;
     }
-    
+
 //check product ID already exists
     public boolean isIdExist(int id) {
         try {
@@ -87,7 +87,7 @@ public class ProductDao {
         try {
             ps = con.prepareStatement("select * from product where pname = ? and cname = ?");
             ps.setString(1, pro);
-            ps.setString(2, cat);            
+            ps.setString(2, cat);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
@@ -99,9 +99,10 @@ public class ProductDao {
         }
         return false;
     }
+
     //insert data into product table
-    public void insert(int id, String pname, String cname, int qty, double price) {
-        String sql = "insert into product values(?,?,?,?,?)";
+    public void insert(int id, String pname, String cname, int qty, double price, String imagePath) {
+        String sql = "insert into product values(?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -109,43 +110,53 @@ public class ProductDao {
             ps.setString(3, cname);
             ps.setInt(4, qty);
             ps.setDouble(5, price);
-            
+            ps.setString(6, imagePath);
+
+            System.out.println("Executing SQL Query: " + sql); // Debug log
+            System.out.println("Image Path Passed: " + imagePath); // Debug log
+
             if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Product added successfully");
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL Error: " + ex.getMessage()); // Debug log
         }
 
     }
-    
-      //update product data
-    public void update(int id, String pname, String cname, int qty, double price) {
-        String sql = "update product set pname = ?, cname = ?, pqty = ?, pprice = ? where pid = ?";
+
+    //update product data
+    public void update(int id, String pname, String cname, int qty, double price, String imagePath) {
+        String sql = "update product set pname = ?, cname = ?, pqty = ?, pprice = ?, image_path = ? where pid = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, pname);
-            ps.setString(2, cname);
-            ps.setInt(3, qty);
-            ps.setDouble(4, price);
-            ps.setInt(5, id);
-            if (ps.executeUpdate() > 0) {
+            ps.setString(1, pname);       // pname
+            ps.setString(2, cname);       // cname
+            ps.setInt(3, qty);            // quantity
+            ps.setDouble(4, price);       // price
+            ps.setString(5, imagePath);   // image path 
+            ps.setInt(6, id);             // product id 
+
+            int rowsUpdated = ps.executeUpdate(); // Get the number of rows updated
+            if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Product successfully updated!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No product found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     //delete product
+
+    //delete product
     public void delete(int id) {
         int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete this Product?", "Delete Product", JOptionPane.OK_CANCEL_OPTION, 0);
         if (x == JOptionPane.OK_OPTION) {
             try {
                 ps = con.prepareStatement("delete from product where pid = ?");
                 ps.setInt(1, id);
-                if(ps.executeUpdate()>0){
-                    JOptionPane.showMessageDialog(null,"Product Deleted");
+                if (ps.executeUpdate() > 0) {
+                    JOptionPane.showMessageDialog(null, "Product Deleted");
                 }
 
             } catch (SQLException ex) {
@@ -153,7 +164,7 @@ public class ProductDao {
             }
         }
     }
-    
+
     //get product data
     public void getProductValue(JTable table, String search) {
         String sql = "select * from product where concat(pid, pname, cname) like ? order by pid desc";
@@ -164,12 +175,13 @@ public class ProductDao {
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             Object[] row;
             while (rs.next()) {
-                row = new Object[5];
+                row = new Object[6];
                 row[0] = rs.getInt(1);
                 row[1] = rs.getString(2);
                 row[2] = rs.getString(3);
                 row[3] = rs.getInt(4);
-                row[4] = rs.getDouble(5);                
+                row[4] = rs.getDouble(5);
+                row[5] = rs.getString(6);
                 model.addRow(row);
 
             }
