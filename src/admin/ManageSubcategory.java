@@ -1,8 +1,12 @@
 package admin;
 
 import dao.CategoryDao;
+import dao.ProductDao;
 import dao.Statistics;
+import dao.SubcategoryDao;
 import java.awt.Color;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -12,18 +16,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ezekiel
  */
-public class ManageCategory extends javax.swing.JFrame {
+public class ManageSubcategory extends javax.swing.JFrame {
 
-    CategoryDao cat = new CategoryDao();
+    ProductDao product = new ProductDao();
+    SubcategoryDao scat = new SubcategoryDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
     int xx, xy;
     Color notEdit = new Color(204, 204, 204);// notedit
     DefaultTableModel model;
     int rowIndex;
+    String[] categories; //product
     Statistics statistics = new Statistics();
 
-    public ManageCategory() {
+    public ManageSubcategory() {
         initComponents();
         init();
     }
@@ -51,14 +57,12 @@ public class ManageCategory extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(43, 50, 63));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -77,11 +81,11 @@ public class ManageCategory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Category ID", "Category Name"
+                "Subcategory ID", "Subcategory Name", "Category Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -115,11 +119,11 @@ public class ManageCategory extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(217, 173, 154));
-        jLabel1.setText("Category ID");
+        jLabel1.setText("Subcategory ID");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(217, 173, 154));
-        jLabel2.setText("Category Name");
+        jLabel2.setText("Subcategory Name");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,6 +178,10 @@ public class ManageCategory extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(217, 173, 154));
+        jLabel3.setText("Category Name");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,35 +189,36 @@ public class ManageCategory extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField4)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextField2))
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 75, Short.MAX_VALUE)))
                                 .addGap(35, 35, 35))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -219,32 +228,38 @@ public class ManageCategory extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137)
+                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,7 +270,10 @@ public class ManageCategory extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -264,15 +282,84 @@ public class ManageCategory extends javax.swing.JFrame {
 
     private void init() {
         jTextField4.setBackground(notEdit);
-        jTextField4.setText(String.valueOf(cat.getMaxRow()));
-        categoryTable();
+        jTextField4.setText(String.valueOf(scat.getMaxRow()));
+
+        categories = new String[product.countCategories()];
+        setCat();//product
+
+        subcategoryTable();
         setLocation(419, 90); // (higher(paright), higher(pababa))
+
+        setCategories(); //#3
+        setCategoryListener();
 
     }
 
+    private void setCat() {
+        categories = product.getCat();
+        for (String s : categories) {
+            jComboBox1.addItem(s);
+        }
+    }
+
+    private void populateSubcategoryTable(int cid) {
+        SubcategoryDao subcategoryDao = new SubcategoryDao();
+        List<String> subcategories = subcategoryDao.getSubcategories(cid);
+
+        // Define table model
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Subcategory Name"}, 0);
+
+        // Add subcategories to the model
+        for (String subcategory : subcategories) {
+            model.addRow(new Object[]{subcategory});
+        }
+
+        jTable2.setModel(model);
+    }
+    //#3
+
+    private void setCategories() {
+        CategoryDao categoryDao = new CategoryDao();
+        Map<Integer, String> categories = categoryDao.getCategories();
+        for (Map.Entry<Integer, String> entry : categories.entrySet()) {
+            boolean exists = false;
+            for (int i = 0; i < jComboBox1.getItemCount(); i++) {
+                if (jComboBox1.getItemAt(i).equals(entry.getValue())) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                jComboBox1.addItem(entry.getValue()); 
+            }
+        }
+    }
+
+    private void setCategoryListener() {
+        jComboBox1.addActionListener(e -> {
+            String selectedCategory = (String) jComboBox1.getSelectedItem();
+            int cid = getCategoryId(selectedCategory); // Get the category ID
+            if (cid != -1) {
+                populateSubcategoryTable(cid); 
+            }
+        });
+    }
+
+// Helper method to get category ID from name
+    private int getCategoryId(String categoryName) {
+        CategoryDao categoryDao = new CategoryDao();
+        Map<Integer, String> categories = categoryDao.getCategories(); // Fetch all categories
+        for (Map.Entry<Integer, String> entry : categories.entrySet()) {
+            if (entry.getValue().equals(categoryName)) {
+                return entry.getKey(); // Return the matching category ID
+            }
+        }
+        return -1; // Return -1 if no match is found
+    }
+
     //color grid table
-    private void categoryTable() {
-        cat.getCategoryValue(jTable2, "");
+    private void subcategoryTable() {
+        scat.getSubCategoryValue(jTable2, "");
         model = (DefaultTableModel) jTable2.getModel();
         jTable2.setRowHeight(30);
         jTable2.setShowGrid(true);
@@ -282,9 +369,9 @@ public class ManageCategory extends javax.swing.JFrame {
     }
 
     private void clear() {
-        jTextField4.setText("");
-        jTextField4.setText(String.valueOf(cat.getMaxRow()));
-        jTextField2.setText("");
+        jTextField4.setText(""); // Clear Subcategory ID
+        jTextField2.setText(""); // Clear Subcategory Name
+        jComboBox1.setSelectedIndex(0);
         jTable2.clearSelection();
         statistics.admin();
 
@@ -293,7 +380,7 @@ public class ManageCategory extends javax.swing.JFrame {
     private boolean isEmpty() {
 
         if (jTextField2.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Category name is required", "Warning", 2);
+            JOptionPane.showMessageDialog(this, "Subcategory name is required", "Warning", 2);
             return false;
 
         }
@@ -301,9 +388,23 @@ public class ManageCategory extends javax.swing.JFrame {
 
     }
 
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        model = (DefaultTableModel) jTable2.getModel();
+        rowIndex = jTable2.getSelectedRow();
+        jTextField4.setText(model.getValueAt(rowIndex, 0).toString());
+        jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
+    }//GEN-LAST:event_jTable2MouseClicked
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    //search
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        jTable2.setModel(new DefaultTableModel(null, new Object[]{
+            "Category ID", "Category Name", "Description"}));
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -316,62 +417,91 @@ public class ManageCategory extends javax.swing.JFrame {
         AdminDashboard.jLabel8.setForeground(textPrimaryColor);
         AdminDashboard.jLabel34.setVisible(true);
         AdminDashboard.jLabel38.setVisible(false);
-
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    //save
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (isEmpty()) {
-            int id = Integer.parseInt(jTextField4.getText());
-            String cname = jTextField2.getText();
+            int id = Integer.parseInt(jTextField4.getText()); // Subcategory ID
+            String scname = jTextField2.getText();            // Subcategory Name
+            String categoryName = jComboBox1.getSelectedItem().toString(); // Selected Category Name
+            int categoryId = getCategoryId(categoryName);     // Get Category ID based on selected name
 
-            if (!cat.isIdExist(id)) {
-                if (!cat.isCategoryNameExist(cname)) {
-                    cat.insert(cname);
-                    
+            if (categoryId == -1) {
+                JOptionPane.showMessageDialog(this, "Invalid category selected", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Check if Subcategory ID or Name already exists
+            if (!scat.isIdExist(id)) {
+                if (!scat.isSubCategoryNameExist(scname)) {
+                    scat.insert(id, scname, categoryId);
+
                     jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                        "Category ID", "Category Name"}));
-                    cat.getCategoryValue(jTable2, "");
+                        "Subcategory ID", "Subcategory Name", "Category"}));
+                    scat.getSubCategoryValue(jTable2, "");
                     clear();
+
+                    JOptionPane.showMessageDialog(this, "Subcategory saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Category name already exists", "Warning", 2);
-
+                    JOptionPane.showMessageDialog(this, "Subcategory name already exists", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Category Id already exist", "Warning", 2);
-
+                JOptionPane.showMessageDialog(this, "Subcategory ID already exists", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-
         }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        clear();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    //delete
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTextField4.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select a Subcategory");
+        } else {
+            int id = Integer.parseInt(jTextField4.getText());
+            if (scat.isIdExist(id)) {
+                scat.delete(id);
+                jTable2.setModel(new DefaultTableModel(null, new Object[]{
+                    "Subcategory ID", "Subcategory Name", "Category"}));
+                scat.getSubCategoryValue(jTable2, "");
+                clear();
+            } else {
+                JOptionPane.showMessageDialog(this, "Subcategory doesn't exist", "Warning", 2);
 
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    //update
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (isEmpty()) {
-            int id = Integer.parseInt(jTextField4.getText());
+            int id = Integer.parseInt(jTextField4.getText()); 
+            String scname = jTextField2.getText(); 
 
-            if (cat.isIdExist(id)) {
-                if (!check()) {
-                    String cname = jTextField2.getText();
-                    cat.update(id, cname);
+            String selectedCategory = jComboBox1.getSelectedItem().toString();
+            int cid = getCategoryId(selectedCategory); 
+
+            // Check if Subcategory ID exists
+            if (scat.isIdExist(id)) {
+                if (!check()) { 
+                    scat.update(id, scname, cid);
+
                     jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                        "Category ID", "Category Name"}));
-                    cat.getCategoryValue(jTable2, "");
-                    clear();
+                        "Subcategory ID", "Subcategory Name", "Category"
+                    }));
+                    scat.getSubCategoryValue(jTable2, ""); 
+                    clear(); 
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Category Id  doesn't exist", "Warning", 2);
+                JOptionPane.showMessageDialog(this, "Subcategory ID doesn't exist", "Warning", JOptionPane.WARNING_MESSAGE); // Fixed error message
             }
-
         }
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {
         for (double i = 0.1; i <= 1.0; i += 0.1) {
             String s = "" + i;
             float f = Float.parseFloat(s);
@@ -381,67 +511,46 @@ public class ManageCategory extends javax.swing.JFrame {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ManageCategory.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }    }//GEN-LAST:event_formWindowOpened
+        }
+    }
+
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         xx = evt.getX();
         xy = evt.getY();
     }//GEN-LAST:event_jPanel1MousePressed
 
-    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-           this.setLocation(x - xx, y - xy);    }//GEN-LAST:event_jPanel1MouseDragged
-
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        model = (DefaultTableModel) jTable2.getModel();
-        rowIndex = jTable2.getSelectedRow();
-        jTextField4.setText(model.getValueAt(rowIndex, 0).toString());
-        jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
-    }//GEN-LAST:event_jTable2MouseClicked
-
-    // search text field
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        jTable2.setModel(new DefaultTableModel(null, new Object[]{
-            "Category ID", "Category Name", "Description"}));
-        cat.getCategoryValue(jTable2, jTextField1.getText());    }//GEN-LAST:event_jTextField1KeyReleased
-
-    //delete button
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTextField4.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select a category");
-        } else {
-            int id = Integer.parseInt(jTextField4.getText());
-            if (cat.isIdExist(id)) {
-                cat.delete(id);
-                jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                    "Category ID", "Category Name"}));
-                cat.getCategoryValue(jTable2, "");
-                clear();
-            } else {
-                JOptionPane.showMessageDialog(this, "Category doesn't exist", "Warning", 2);
-
-            }
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private boolean check() {
-        String newCategory = jTextField2.getText();
-        String oldCategory = model.getValueAt(rowIndex, 1).toString();
+        String newSubcategory = jTextField2.getText();
 
-        if (!newCategory.equals(oldCategory)) {
-            return false;
-        } else {
-            if (!newCategory.equals(oldCategory)) {
-                boolean x = cat.isCategoryNameExist(newCategory);
-                if (x) {
-                    JOptionPane.showMessageDialog(this, "This Category name already exists", "Warning", 2);
-
-                }
-                return x;
-            }
+        // Check if subcategory name is empty
+        if (newSubcategory.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Subcategory name cannot be empty", "Warning", JOptionPane.WARNING_MESSAGE);
+            return true; // Invalid
         }
-        return false;
+
+        // Check if the subcategory name is the same as the old one
+        String oldSubcategory = model.getValueAt(rowIndex, 1).toString();
+        if (newSubcategory.equals(oldSubcategory)) {
+            return false; // No change, valid
+        }
+
+        // Check if the new subcategory name already exists
+        if (scat.isSubCategoryNameExist(newSubcategory)) {
+            JOptionPane.showMessageDialog(this, "This Subcategory name already exists", "Warning", JOptionPane.WARNING_MESSAGE);
+            return true; // Invalid
+        }
+
+        return false; // Valid
     }
 
 
@@ -450,8 +559,10 @@ public class ManageCategory extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;

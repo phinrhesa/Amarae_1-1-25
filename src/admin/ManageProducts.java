@@ -477,7 +477,7 @@ public class ManageProducts extends javax.swing.JFrame {
                 System.out.println("Image Path Before Insert: " + imagePath);
 
                 if (!product.isIdExist(id)) {
-                    if (!product.isProCatExist(pname, cat)) {
+                    if (!product.isProSubCatExist(pname, cat)) {
                         product.insert(id, pname, cat, qty, price, imagePath);
                         jTable2.setModel(new DefaultTableModel(null, new Object[]{
                             "Product ID", "Product Name", "Category", "Quantity", "Price", "Image Path"}));
