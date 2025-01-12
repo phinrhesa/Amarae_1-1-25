@@ -9,9 +9,15 @@ import dao.CartDao;
 import dao.Statistics;
 import dao.UserDao;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.text.MessageFormat;
+import java.awt.print.PrinterJob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -391,7 +397,7 @@ public class Purchase extends javax.swing.JFrame {
         purchaseTable();
         pId = purchaseDao.getMaxRow();
         setLocation(437, 95); // (higher(paright), higher(pababa))
-        
+
     }
 
     //color grid table
@@ -465,36 +471,52 @@ public class Purchase extends javax.swing.JFrame {
         } else {
             model = (DefaultTableModel) jTable1.getModel();
             int proid = Integer.parseInt(model.getValueAt(rowIndex, 0).toString());
-            if (!isProductExist(proid)) {
-                if (!(qty < 0)) {
-                    int newQty = Integer.parseInt(jTextField3.getText());
-                    if (newQty != 0) {
-                        if (!(newQty > qty)) {
+            String pname = jTextField2.getText();
+            int newQty = Integer.parseInt(jTextField3.getText());
 
-                            String pname = jTextField2.getText();
-                            String t = String.format("%.2f", price * (double) newQty);
-                            Object[] data = {pId, proid, pname, newQty, price, t};
-                            model = (DefaultTableModel) jTable2.getModel();
-                            model.addRow(data);
-                            total += price * (double) newQty;
-                            jLabel5.setText(String.format("Total:" + "%.2f", total));
-                            pId++;
-                            clear();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Not enough stock", "Warning", 2);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please increase the product quantity", "Warning", 2);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Stock is Empty", "Warning", 2);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Product already purchased", "Warning", 2);
-
+            if (newQty <= 0) {
+                JOptionPane.showMessageDialog(this, "Please increase the product quantity", "Warning", 2);
+                return;
             }
 
+            DefaultTableModel purchaseModel = (DefaultTableModel) jTable2.getModel();
+            boolean productExistsInPurchase = false;
+            int existingRow = -1;
+
+            for (int i = 0; i < purchaseModel.getRowCount(); i++) {
+                if ((int) purchaseModel.getValueAt(i, 1) == proid) {  // Compare product ID
+                    productExistsInPurchase = true;
+                    existingRow = i;
+                    break;
+                }
+            }
+
+            if (productExistsInPurchase) {
+                // Product already exists, so increase the quantity and update total
+                int existingQty = (int) purchaseModel.getValueAt(existingRow, 3);
+                double existingPrice = (double) purchaseModel.getValueAt(existingRow, 4);
+                double newTotal = existingPrice * (existingQty + newQty);
+
+                // Update quantity and total
+                purchaseModel.setValueAt(existingQty + newQty, existingRow, 3);
+                purchaseModel.setValueAt(String.format("%.2f", newTotal), existingRow, 5);
+                total += price * newQty; // Update total price
+                jLabel5.setText(String.format("Total:" + "%.2f", total));
+            } else {
+                // If the product is not in the purchase table, add a new row
+                String t = String.format("%.2f", price * (double) newQty);
+                Object[] data = {pId, proid, pname, newQty, price, t};
+                purchaseModel.addRow(data);
+                total += price * newQty; // Update total price
+                jLabel5.setText(String.format("Total: ₱" + "%.2f", total));
+                pId++;
+            }
+
+            // Decrease stock quantity in the product table
+            qty -= newQty;  // Update stock based on purchased quantity
+            clear();
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean isProductExist(int proid) {
@@ -611,11 +633,83 @@ public class Purchase extends javax.swing.JFrame {
 
     //print button
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
         try {
-            String email = UserDashboard.userEmail.getText();
-            MessageFormat header = new MessageFormat("Receipt-->     " + "Email: " + email + "     " + "Total: " + total);
-            MessageFormat footer = new MessageFormat("Page(0, number, integer)");
-            jTable2.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+            // Create a PrinterJob object and set up the page format.
+            PrinterJob printerJob = PrinterJob.getPrinterJob();
+            printerJob.setPrintable(new Printable() {
+
+                @Override
+                public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                    if (pageIndex >= 1) {
+                        return Printable.NO_SUCH_PAGE; // Only one page for the receipt
+                    }
+
+                    Graphics2D g2d = (Graphics2D) graphics;
+                    g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+                    // Set up the font and size for the receipt text
+                    Font font = new Font("Monospaced", Font.PLAIN, 10);
+                    g2d.setFont(font);
+
+                    FontMetrics fm = g2d.getFontMetrics();
+                    int lineHeight = fm.getHeight();
+                    int y = 20;
+
+                    // Print the receipt header
+                    String header = "==========================================\n"
+                            + "PURCHASE RECEIPT\n"
+                            + "==========================================\n"
+                            + "Email: " + UserDashboard.userEmail.getText() + "\n"
+                            + "Total: ₱" + String.format("%.2f", total) + "\n"
+                            + "==========================================";
+
+                    String[] headerLines = header.split("\n");
+
+                    for (String line : headerLines) {
+                        g2d.drawString(line, 10, y);
+                        y += lineHeight;
+                    }
+
+                    // Table Headers
+                    g2d.drawString(String.format("%-4s %-14s %-8s %-6s %-6s", "ID", "Product", "Quantity", "Price", "Total"), 10, y);
+                    y += lineHeight;
+                    g2d.drawString("==========================================", 10, y);
+                    y += lineHeight;
+
+                    // Print the table rows (Purchase table data)
+                    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+                    for (int i = 0; i < model.getRowCount(); i++) {
+                        int pId = (int) model.getValueAt(i, 0);
+                        String pname = (String) model.getValueAt(i, 2);
+                        int qty = (int) model.getValueAt(i, 3);
+                        double price = (double) model.getValueAt(i, 4);
+                        String totalString = model.getValueAt(i, 5).toString();
+                        double total = Double.parseDouble(totalString);
+
+                        // Format the row to align columns
+                        String row = String.format("%-4d %-14s %-8d ₱%-6.2f ₱%-6.2f", pId, pname, qty, price, total);
+                        g2d.drawString(row, 10, y);
+                        y += lineHeight;
+                    }
+
+                    // Footer
+                    g2d.drawString("==========================================", 10, y);
+                    y += lineHeight;
+                    g2d.drawString("Thank you for your purchase!", 10, y);
+                    y += lineHeight;
+                    g2d.drawString("Visit us again!", 10, y);
+                    y += lineHeight;
+                    
+                    return Printable.PAGE_EXISTS;
+                }
+            });
+
+            // Show the print dialog and print
+            if (printerJob.printDialog()) {
+                printerJob.print();
+            }
+
         } catch (PrinterException ex) {
             Logger.getLogger(Purchase.class.getName()).log(Level.SEVERE, null, ex);
         }
