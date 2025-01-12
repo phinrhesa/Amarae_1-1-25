@@ -378,10 +378,11 @@ public class UserAccount extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void init() {
-        setLocation(490, 50); // (higher(paright), lower(pataas))
         uId = user.getUserId(UserDashboard.userEmail.getText());
         value = user.getUserValue(uId);
         setValue();
+        setLocation(442, 95); // (higher(paright), higher(pababa))
+
     }
 
     private void setValue() {

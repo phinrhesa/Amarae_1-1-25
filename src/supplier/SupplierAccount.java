@@ -347,6 +347,8 @@ public class SupplierAccount extends javax.swing.JFrame {
         suppId = supplier.getSupplierId(SupplierDashboard.supplierEmail.getText());
         value = supplier.getSupplierValue(suppId);
         setValue();
+        setLocation(437, 95); // (higher(paright), higher(pababa))
+        
 
     }
 

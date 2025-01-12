@@ -258,6 +258,8 @@ public class PurchaseDetails extends javax.swing.JFrame {
         jTextField3.setText(df.format(date));
         uId = user.getUserId(UserDashboard.userEmail.getText());
         productTable();
+        setLocation(442, 95); // (higher(paright), higher(pababa))
+        
     }
 
     private void productTable() {

@@ -390,6 +390,8 @@ public class Purchase extends javax.swing.JFrame {
         productTable();
         purchaseTable();
         pId = purchaseDao.getMaxRow();
+        setLocation(437, 95); // (higher(paright), higher(pababa))
+        
     }
 
     //color grid table

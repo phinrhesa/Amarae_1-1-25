@@ -175,7 +175,7 @@ public class Delivery extends javax.swing.JFrame {
     private void init() {
         supplierName = supplierDao.getSupplierName(SupplierDashboard.supplierEmail.getText());
         purchaseTable();
-        
+        setLocation(437, 95); // (higher(paright), higher(pababa))
 
     }
 
@@ -187,7 +187,7 @@ public class Delivery extends javax.swing.JFrame {
         jTable1.setGridColor(Color.decode("#000000"));
         jTable1.setBackground(Color.decode("#FFFFFF"));
         jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
-        
+
         // Set column widths
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(100); // Purchase ID
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(100); // User ID
@@ -240,7 +240,7 @@ public class Delivery extends javax.swing.JFrame {
     //search
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "User Name", "User Phone", "Product ID", "Product Name",
-                 "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
+            "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
         purchaseDao.getOntheWayProducts(jTable1, jTextField1.getText(), supplierName);
 
     }//GEN-LAST:event_jTextField1KeyReleased
@@ -255,7 +255,7 @@ public class Delivery extends javax.swing.JFrame {
         String status = "Received";
         purchaseDao.setDateStatus(id, receivedDate, status);
         jTable1.setModel(new DefaultTableModel(null, new Object[]{"Purchase ID", "User ID", "User Name", "User Phone", "Product ID", "Product Name",
-                 "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
+            "Quantity", "Price", "Total", "Purchase Date", "Address", "Received Date", "Supplier Name", "Status"}));
         purchaseDao.getOntheWayProducts(jTable1, "", supplierName);
         statistics.supplier(supplierDao.getSupplierName(SupplierDashboard.supplierEmail.getText()));
 

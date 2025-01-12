@@ -169,6 +169,7 @@ public class MyDeliveries extends javax.swing.JFrame {
     private void init() {
         SupplierName = supplierDao.getSupplierName(SupplierDashboard.supplierEmail.getText());
         myDeliveredTable();
+        setLocation(437, 95); // (higher(paright), higher(pababa))
 
     }
 
@@ -244,7 +245,6 @@ public class MyDeliveries extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTextField1KeyReleased
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel4;
