@@ -200,7 +200,9 @@ public class ManageSupplier extends javax.swing.JFrame {
             }
         });
 
+        btnSignUp.setBackground(new java.awt.Color(98, 123, 118));
         btnSignUp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSignUp.setForeground(new java.awt.Color(43, 50, 63));
         btnSignUp.setText("Update");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +210,9 @@ public class ManageSupplier extends javax.swing.JFrame {
             }
         });
 
+        btnSignUp2.setBackground(new java.awt.Color(98, 123, 118));
         btnSignUp2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSignUp2.setForeground(new java.awt.Color(43, 50, 63));
         btnSignUp2.setText("Delete");
         btnSignUp2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +224,9 @@ public class ManageSupplier extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Address");
 
+        btnSignUp1.setBackground(new java.awt.Color(98, 123, 118));
         btnSignUp1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSignUp1.setForeground(new java.awt.Color(43, 50, 63));
         btnSignUp1.setText("Clear");
         btnSignUp1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,24 +304,19 @@ public class ManageSupplier extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel6)
-                        .addContainerGap(358, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(71, 71, 71))))
+                    .addComponent(jLabel15)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSignUp2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel6))
+                .addGap(71, 71, 71))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

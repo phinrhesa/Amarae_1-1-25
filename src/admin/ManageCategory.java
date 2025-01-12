@@ -177,7 +177,7 @@ public class ManageCategory extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(41, 0, 10));
+        jButton4.setBackground(new java.awt.Color(81, 7, 25));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(217, 173, 154));
         jButton4.setText("Clear");

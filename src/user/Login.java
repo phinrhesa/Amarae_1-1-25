@@ -129,7 +129,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, -1, 20));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jTextField1.setText("1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +138,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 330, 50));
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         jPasswordField1.setText("1");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,9 +147,11 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 335, 50));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Email");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 37, 30));
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Password");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 64, 20));
 

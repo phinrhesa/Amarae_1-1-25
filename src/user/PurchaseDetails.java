@@ -135,8 +135,8 @@ public class PurchaseDetails extends javax.swing.JFrame {
         });
 
         jButton1.setBackground(new java.awt.Color(98, 123, 118));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 51));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(43, 50, 63));
         jButton1.setText("Refund");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +145,8 @@ public class PurchaseDetails extends javax.swing.JFrame {
         });
 
         jButton4.setBackground(new java.awt.Color(98, 123, 118));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(43, 50, 63));
         jButton4.setText("Clear");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,9 +159,11 @@ public class PurchaseDetails extends javax.swing.JFrame {
         jLabel1.setText("Purchase ID");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Received Date");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Current Date");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N

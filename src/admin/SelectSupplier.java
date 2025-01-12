@@ -125,7 +125,7 @@ public class SelectSupplier extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 17)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(217, 173, 154));
         jLabel2.setText("Supplier ");
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
