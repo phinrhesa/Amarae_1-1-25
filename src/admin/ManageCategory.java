@@ -22,6 +22,7 @@ public class ManageCategory extends javax.swing.JFrame {
     DefaultTableModel model;
     int rowIndex;
     Statistics statistics = new Statistics();
+    
 
     public ManageCategory() {
         initComponents();
@@ -42,9 +43,11 @@ public class ManageCategory extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -77,11 +80,11 @@ public class ManageCategory extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Category ID", "Category Name"
+                "Category ID", "Category Name", "Description"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -113,6 +116,12 @@ public class ManageCategory extends javax.swing.JFrame {
             }
         });
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(217, 173, 154));
         jLabel1.setText("Category ID");
@@ -120,6 +129,10 @@ public class ManageCategory extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(217, 173, 154));
         jLabel2.setText("Category Name");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(217, 173, 154));
+        jLabel3.setText("Description");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,9 +199,11 @@ public class ManageCategory extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField4)
+                                    .addComponent(jTextField3)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jTextField2))
@@ -235,7 +250,11 @@ public class ManageCategory extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(4, 4, 4)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,6 +286,7 @@ public class ManageCategory extends javax.swing.JFrame {
         jTextField4.setText(String.valueOf(cat.getMaxRow()));
         categoryTable();
         setLocation(419, 90); // (higher(paright), higher(pababa))
+        
 
     }
 
@@ -279,12 +299,18 @@ public class ManageCategory extends javax.swing.JFrame {
         jTable2.setGridColor(Color.decode("#000000"));
         jTable2.setBackground(Color.decode("#FFFFFF"));
         jTable2.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+        
+        // Set column widths
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(100); 
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(500); 
     }
 
     private void clear() {
         jTextField4.setText("");
         jTextField4.setText(String.valueOf(cat.getMaxRow()));
         jTextField2.setText("");
+        jTextField3.setText("");
         jTable2.clearSelection();
         statistics.admin();
 
@@ -294,6 +320,11 @@ public class ManageCategory extends javax.swing.JFrame {
 
         if (jTextField2.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Category name is required", "Warning", 2);
+            return false;
+
+        }
+        if (jTextField3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Description is required", "Warning", 2);
             return false;
 
         }
@@ -309,12 +340,16 @@ public class ManageCategory extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         setVisible(false);
         AdminDashboard.jPanel10.setBackground(primaryColor);
         AdminDashboard.jPanel11.setBackground(primaryColor);
         AdminDashboard.jLabel8.setForeground(textPrimaryColor);
-        AdminDashboard.jLabel34.setVisible(true);
+        AdminDashboard. jLabel34.setVisible(true);
         AdminDashboard.jLabel38.setVisible(false);
 
     }//GEN-LAST:event_jLabel7MouseClicked
@@ -323,13 +358,12 @@ public class ManageCategory extends javax.swing.JFrame {
         if (isEmpty()) {
             int id = Integer.parseInt(jTextField4.getText());
             String cname = jTextField2.getText();
-
+            String cdesc = jTextField3.getText();
             if (!cat.isIdExist(id)) {
                 if (!cat.isCategoryNameExist(cname)) {
-                    cat.insert(cname);
-                    
+                    cat.insert(id, cname, cdesc);
                     jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                        "Category ID", "Category Name"}));
+                        "Category ID", "Category Name", "Description"}));
                     cat.getCategoryValue(jTable2, "");
                     clear();
 
@@ -356,9 +390,10 @@ public class ManageCategory extends javax.swing.JFrame {
             if (cat.isIdExist(id)) {
                 if (!check()) {
                     String cname = jTextField2.getText();
-                    cat.update(id, cname);
+                    String cdesc = jTextField3.getText();
+                    cat.update(id, cname, cdesc);
                     jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                        "Category ID", "Category Name"}));
+                        "Category ID", "Category Name", "Description"}));
                     cat.getCategoryValue(jTable2, "");
                     clear();
                 }
@@ -398,6 +433,7 @@ public class ManageCategory extends javax.swing.JFrame {
         rowIndex = jTable2.getSelectedRow();
         jTextField4.setText(model.getValueAt(rowIndex, 0).toString());
         jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
+        jTextField3.setText(model.getValueAt(rowIndex, 2).toString());
     }//GEN-LAST:event_jTable2MouseClicked
 
     // search text field
@@ -415,9 +451,9 @@ public class ManageCategory extends javax.swing.JFrame {
             if (cat.isIdExist(id)) {
                 cat.delete(id);
                 jTable2.setModel(new DefaultTableModel(null, new Object[]{
-                    "Category ID", "Category Name"}));
-                cat.getCategoryValue(jTable2, "");
-                clear();
+                        "Category ID", "Category Name", "Description"}));
+                    cat.getCategoryValue(jTable2, "");
+                    clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Category doesn't exist", "Warning", 2);
 
@@ -452,6 +488,7 @@ public class ManageCategory extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -459,6 +496,7 @@ public class ManageCategory extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

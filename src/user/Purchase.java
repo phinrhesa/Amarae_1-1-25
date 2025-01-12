@@ -34,7 +34,7 @@ public class Purchase extends javax.swing.JFrame {
     ProductDao productDao = new ProductDao();
     Color textPrimaryColor = new Color(217, 173, 154);
     Color primaryColor = new Color(41, 0, 10);
-    private String imagePath;    
+    private String imagePath;
     int xx, xy;
     DefaultTableModel model;
     private int qty = 0;
@@ -146,11 +146,6 @@ public class Purchase extends javax.swing.JFrame {
         jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
@@ -406,6 +401,16 @@ public class Purchase extends javax.swing.JFrame {
         jTable1.setGridColor(Color.decode("#000000"));
         jTable1.setBackground(Color.decode("#FFFFFF"));
         jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        // Set column widths
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(300);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(500);
     }
 
     private void purchaseTable() {
@@ -415,6 +420,16 @@ public class Purchase extends javax.swing.JFrame {
         jTable2.setGridColor(Color.decode("#000000"));
         jTable2.setBackground(Color.decode("#FFFFFF"));
         jTable2.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        // Set column widths
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(400);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(80);
     }
 
     private void clear() {
@@ -429,10 +444,6 @@ public class Purchase extends javax.swing.JFrame {
         qty = 0;
 
     }
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -611,7 +622,7 @@ public class Purchase extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        jTable2.setModel(new DefaultTableModel(null, new Object[]{"Product ID", "Product Name", "category", "Quantity", "Price"}));
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Product ID", "Product Name", "category", "Quantity", "Price"}));
         productDao.getProductValue(jTable1, jTextField1.getText());
      }//GEN-LAST:event_jTextField1KeyReleased
 

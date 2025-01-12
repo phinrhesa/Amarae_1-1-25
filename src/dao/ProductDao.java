@@ -82,23 +82,18 @@ public class ProductDao {
         return false;
     }
 
-    //check product, category, subcategory is existed
-    public boolean isProSubCatExist(String pname, int cid, int scid) {
-        String sql = "SELECT COUNT(*) FROM product WHERE pname = ? AND cid = ? AND scid = ?";
+    //check product and category is existed
+    public boolean isProCatExist(String pro, String cat) {
         try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, pname);
-            ps.setInt(2, cid);
-            ps.setInt(3, scid);
+            ps = con.prepareStatement("select * from product where pname = ? and cname = ?");
+            ps.setString(1, pro);
+            ps.setString(2, cat);
             rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
 
-            // Debugging: Log the query and the result
-            System.out.println("Checking product with pname: " + pname + ", cid: " + cid + ", scid: " + scid);
-
-            if (rs.next() && rs.getInt(1) > 0) {
-                System.out.println("Product already exists with the same category and subcategory.");
-                return true; // Product already exists with the same category and subcategory
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,17 +101,16 @@ public class ProductDao {
     }
 
     //insert data into product table
-    public void insert(int id, String pname, int cid, int scid, int qty, double price, String imagePath) {
-        String sql = "INSERT INTO product (pid, pname, cid, scid, pqty, pprice, image_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void insert(int id, String pname, String cname, int qty, double price, String imagePath) {
+        String sql = "insert into product values(?,?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.setString(2, pname);
-            ps.setInt(3, cid);
-            ps.setInt(4, scid);
-            ps.setInt(5, qty);
-            ps.setDouble(6, price);
-            ps.setString(7, imagePath);
+            ps.setString(3, cname);
+            ps.setInt(4, qty);
+            ps.setDouble(5, price);
+            ps.setString(6, imagePath);
 
             System.out.println("Executing SQL Query: " + sql); // Debug log
             System.out.println("Image Path Passed: " + imagePath); // Debug log
@@ -132,12 +126,12 @@ public class ProductDao {
     }
 
     //update product data
-    public void update(int id, String pname, String scname, int qty, double price, String imagePath) {
-        String sql = "update product set pname = ?, scname = ?, pqty = ?, pprice = ?, image_path = ? where pid = ?";
+    public void update(int id, String pname, String cname, int qty, double price, String imagePath) {
+        String sql = "update product set pname = ?, cname = ?, pqty = ?, pprice = ?, image_path = ? where pid = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, pname);       // pname
-            ps.setString(2, scname);       // scname
+            ps.setString(2, cname);       // cname
             ps.setInt(3, qty);            // quantity
             ps.setDouble(4, price);       // price
             ps.setString(5, imagePath);   // image path 
@@ -173,7 +167,7 @@ public class ProductDao {
 
     //get product data
     public void getProductValue(JTable table, String search) {
-        String sql = "select * from product where concat(pid, pname, scname) like ? order by pid desc";
+        String sql = "select * from product where concat(pid, pname, cname) like ? order by pid desc";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, "%" + search + "%");
@@ -197,30 +191,4 @@ public class ProductDao {
         }
 
     }
-
-    // Get Subcategories for a Category
-    public String[] getSubcategoriesByCategory(String category) {
-        String[] subcategories = new String[0];
-        try {
-            String sql = "select scname from subcategory where cid = (select cid from category where cname = ?)";
-            ps = con.prepareStatement(sql);
-            ps.setString(1, category);
-            rs = ps.executeQuery();
-
-            // Get the number of subcategories first
-            rs.last();
-            int size = rs.getRow();
-            rs.beforeFirst();
-            subcategories = new String[size];
-            int i = 0;
-            while (rs.next()) {
-                subcategories[i] = rs.getString("scname");
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return subcategories;
-    }
-
 }

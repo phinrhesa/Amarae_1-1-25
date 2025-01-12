@@ -17,11 +17,15 @@ import user.Login;
  */
 public class AdminDashboard extends javax.swing.JFrame {
 
-    Color selectionColor = new Color(41, 0, 10);
-    Color sideColor = new Color(213, 172, 95);
-    Color textSelectionColor = new Color(255, 255, 255);
+    
+    
+    Color selectionColor = new Color (41, 0, 10);
+    Color sideColor = new Color (213,172,95);
+    Color textSelectionColor = new Color (255, 255, 255);
     int xx, xy;
-
+    
+    
+   
     public AdminDashboard() {
         initComponents();
         init();
@@ -79,11 +83,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel28 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        jPanel29 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jPanel30 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
         jPanel7 = new RoundedPanel(50, "#510719");
         jPanel12 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -105,9 +104,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jTsales = new javax.swing.JLabel();
-        jPanel31 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jsCat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -271,7 +267,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 330, 50));
+        jPanel3.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 330, 50));
 
         jPanel10.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -338,7 +334,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 330, 50));
+        jPanel3.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 330, 50));
 
         jPanel19.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -405,7 +401,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 330, 50));
+        jPanel3.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 330, 50));
 
         jPanel21.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -472,7 +468,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 330, 50));
+        jPanel3.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 330, 50));
 
         jPanel23.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -539,7 +535,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 330, 50));
+        jPanel3.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 330, 50));
 
         jPanel25.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -606,7 +602,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 330, 50));
+        jPanel3.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 330, 50));
 
         jPanel27.setBackground(new java.awt.Color(41, 0, 10));
 
@@ -673,74 +669,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jPanel3.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 330, 50));
-
-        jPanel29.setBackground(new java.awt.Color(41, 0, 10));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(217, 173, 154));
-        jLabel15.setText("Manage Subcategory");
-        jLabel15.setAlignmentX(1.0F);
-        jLabel15.setIconTextGap(2);
-        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel15MouseClicked(evt);
-            }
-        });
-
-        jPanel30.setBackground(new java.awt.Color(41, 0, 10));
-
-        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
-        jPanel30.setLayout(jPanel30Layout);
-        jPanel30Layout.setHorizontalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 8, Short.MAX_VALUE)
-        );
-        jPanel30Layout.setVerticalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
-        );
-
-        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Purchasedetails.png"))); // NOI18N
-
-        jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Purchasedetailslight.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
-        jPanel29.setLayout(jPanel29Layout);
-        jPanel29Layout.setHorizontalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel47)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel29Layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(266, Short.MAX_VALUE)))
-        );
-        jPanel29Layout.setVerticalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel29Layout.createSequentialGroup()
-                .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel47))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel48)
-                    .addContainerGap()))
-        );
-
-        jPanel3.add(jPanel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 330, 50));
+        jPanel3.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 330, 50));
 
         jPanel7.setBackground(new java.awt.Color(81, 7, 25));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -834,7 +763,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 410, 60));
+        jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 410, 60));
 
         jPanel15.setBackground(new java.awt.Color(232, 225, 228));
 
@@ -900,7 +829,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel7.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, 60));
+        jPanel7.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 60));
 
         jPanel17.setBackground(new java.awt.Color(232, 225, 228));
 
@@ -968,39 +897,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel7.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 410, 60));
 
-        jPanel31.setBackground(new java.awt.Color(232, 225, 228));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(41, 0, 10));
-        jLabel16.setText("Total Subcategories:");
-
-        jsCat.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
-        jsCat.setForeground(new java.awt.Color(0, 0, 0));
-        jsCat.setText("0");
-
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jsCat, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jsCat))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        jPanel7.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 410, 60));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1030,7 +926,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(100, 100, 100)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -1038,12 +934,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void init() {
+    private void init(){
         icons();
-
+        
     }
-
-    private void icons() {
+    
+    private void icons(){
         jLabel34.setVisible(true);
         jLabel38.setVisible(false);
         jLabel35.setVisible(true);
@@ -1059,17 +955,18 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel37.setVisible(true);
         jLabel33.setVisible(false);
 
-    }
 
+
+    }
+    
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        int a = JOptionPane.showConfirmDialog(this, "Do you want to logout now?", "Logout", JOptionPane.YES_NO_OPTION);
-        if (a == 0) {
+        int a = JOptionPane.showConfirmDialog(this, "Do you want to logout now?", "Logout",JOptionPane.YES_NO_OPTION);
+        if(a == 0){
             new Login().setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    //category
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
         jPanel10.setBackground(selectionColor);
         jPanel11.setBackground(sideColor);
@@ -1079,8 +976,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         ManageCategory manageCategory = new ManageCategory();
         manageCategory.setVisible(true);
         manageCategory.pack();
-
-
+     
+        
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -1114,7 +1011,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         AddSupplier addSupplier = new AddSupplier();
         addSupplier.setVisible(true);
         addSupplier.pack();
-
+        
     }//GEN-LAST:event_jLabel24MouseClicked
 
     private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel25MouseClicked
@@ -1152,39 +1049,29 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i = 0.1; i <= 1.0; i += 0.1) {
-            String s = "" + i;
-            float f = Float.parseFloat(s);
-            this.setOpacity(f);
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             for(double i = 0.1; i<=1.0; i+=0.1){
+                String s = ""+i;
+                float f = Float.parseFloat(s);
+                this.setOpacity(f);
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }    }//GEN-LAST:event_formWindowOpened
 
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
-        xx = evt.getX();
-        xy = evt.getY();
+             xx = evt.getX();
+             xy = evt.getY();
 
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
+           int x = evt.getXOnScreen();
+           int y = evt.getYOnScreen();
            this.setLocation(x - xx, y - xy);    }//GEN-LAST:event_jPanel2MouseDragged
 
-    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        jPanel29.setBackground(selectionColor);
-        jPanel30.setBackground(sideColor);
-        jLabel15.setForeground(textSelectionColor);
-        jLabel47.setVisible(false);
-        jLabel48.setVisible(true);
-        ManageSubcategory manageSubcategory = new ManageSubcategory();
-        manageSubcategory.setVisible(true);
-        manageSubcategory.pack();
-    }//GEN-LAST:event_jLabel15MouseClicked
-
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel adminEmail;
@@ -1195,8 +1082,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    public static javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1219,8 +1104,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel44;
     public static javax.swing.JLabel jLabel45;
     public static javax.swing.JLabel jLabel46;
-    public static javax.swing.JLabel jLabel47;
-    public static javax.swing.JLabel jLabel48;
     public static javax.swing.JLabel jLabel7;
     protected static javax.swing.JLabel jLabel8;
     public static javax.swing.JLabel jLabel9;
@@ -1245,10 +1128,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     public static javax.swing.JPanel jPanel26;
     public static javax.swing.JPanel jPanel27;
     public static javax.swing.JPanel jPanel28;
-    public static javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
-    public static javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     public static javax.swing.JPanel jPanel8;
@@ -1258,61 +1138,58 @@ public class AdminDashboard extends javax.swing.JFrame {
     public static javax.swing.JLabel jSuppliers;
     public static javax.swing.JLabel jTsales;
     public static javax.swing.JLabel jUsers;
-    public static javax.swing.JLabel jsCat;
     // End of variables declaration//GEN-END:variables
 
-    class RoundedPanel extends JPanel {
-
+    class RoundedPanel extends JPanel
+    {
         private Color backgroundColor;
         private int cornerRadius = 15;
-
         public RoundedPanel(LayoutManager layout, int radius) {
             super(layout);
             cornerRadius = radius;
         }
-
         public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
             super(layout);
             cornerRadius = radius;
             backgroundColor = bgColor;
         }
-
         public RoundedPanel(int radius) {
             super();
             cornerRadius = radius;
-
+            
         }
-
-        public RoundedPanel(int radius, String hexColor) {
-            super();
-            this.cornerRadius = radius;
-            this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
-            setOpaque(false); // Make sure transparency for rounded corners
-        }
-
-        // Override paintComponent to draw the rounded panel
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g); // Call the superclass to ensure proper painting
-
-            // Set up Graphics2D for better control over the painting process
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-            // Use the background color (or the default if it's null)
-            if (backgroundColor != null) {
-                g2d.setColor(backgroundColor); // If a custom background color is set
-            } else {
-                g2d.setColor(getBackground()); // Otherwise, use the default background color
-            }
-
-            // Fill the rounded rectangle
-            g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
-
-            // Optionally, draw the border (if desired)
-            g2d.setColor(getForeground()); // Set the border color (usually the text color)
-            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
-        }
+    public RoundedPanel(int radius, String hexColor) {
+        super();
+        this.cornerRadius = radius;
+        this.backgroundColor = Color.decode(hexColor); // Convert hex string to Color
+        setOpaque(false); // Make sure transparency for rounded corners
     }
+
+    // Override paintComponent to draw the rounded panel
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // Call the superclass to ensure proper painting
+
+        // Set up Graphics2D for better control over the painting process
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Use the background color (or the default if it's null)
+        if (backgroundColor != null) {
+            g2d.setColor(backgroundColor); // If a custom background color is set
+        } else {
+            g2d.setColor(getBackground()); // Otherwise, use the default background color
+        }
+
+        // Fill the rounded rectangle
+        g2d.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+
+        // Optionally, draw the border (if desired)
+        g2d.setColor(getForeground()); // Set the border color (usually the text color)
+        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius); // Optional border
+    }
+}
+
+
 
 }

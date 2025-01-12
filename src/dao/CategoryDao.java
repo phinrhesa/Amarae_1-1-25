@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -53,7 +51,7 @@ public class CategoryDao {
         }
         return false;
     }
-
+    
     //check category ID already exists
     public boolean isIdExist(int id) {
         try {
@@ -72,11 +70,13 @@ public class CategoryDao {
     }
 
     //insert data into category table
-    public void insert(String cname) {
-        String sql = "insert into category (cname) values(?)";
+    public void insert(int id, String cname, String cdesc) {
+        String sql = "insert into category values(?,?,?)";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, cname);
+            ps.setInt(1, id);
+            ps.setString(2, cname);
+            ps.setString(3, cdesc);
 
             if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Category added successfully");
@@ -88,12 +88,13 @@ public class CategoryDao {
     }
 
     //update category data
-    public void update(int id, String cname) {
-        String sql = "update category set cname = ? where cid = ?";
+    public void update(int id, String cname, String cdesc) {
+        String sql = "update category set cname = ?, cdesc = ? where cid = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, cname);
-            ps.setInt(2, id);
+            ps.setString(2, cdesc);
+            ps.setInt(3, id);
             if (ps.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Category successfully updated!");
             }
@@ -101,7 +102,7 @@ public class CategoryDao {
             Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     //delete category
     public void delete(int id) {
         int x = JOptionPane.showConfirmDialog(null, "Are you sure to delete this category?", "Delete Category", JOptionPane.OK_CANCEL_OPTION, 0);
@@ -109,8 +110,8 @@ public class CategoryDao {
             try {
                 ps = con.prepareStatement("delete from category where cid = ?");
                 ps.setInt(1, id);
-                if (ps.executeUpdate() > 0) {
-                    JOptionPane.showMessageDialog(null, "Category Deleted");
+                if(ps.executeUpdate()>0){
+                    JOptionPane.showMessageDialog(null,"Category Deleted");
                 }
 
             } catch (SQLException ex) {
@@ -121,7 +122,7 @@ public class CategoryDao {
 
     //get category data
     public void getCategoryValue(JTable table, String search) {
-        String sql = "select * from category where concat(cid, cname) like ? order by cid desc";
+        String sql = "select * from category where concat(cid, cname, cdesc) like ? order by cid desc";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, "%" + search + "%");
@@ -132,6 +133,7 @@ public class CategoryDao {
                 row = new Object[3];
                 row[0] = rs.getInt(1);
                 row[1] = rs.getString(2);
+                row[2] = rs.getString(3);
                 model.addRow(row);
 
             }
@@ -140,22 +142,6 @@ public class CategoryDao {
             Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    // Fetch all categories
-    public Map<Integer, String> getCategories() {
-        Map<Integer, String> categories = new HashMap<>();
-        try {
-            String sql = "SELECT cid, cname FROM category";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                categories.put(rs.getInt("cid"), rs.getString("cname")); // Store cid and cname
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoryDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return categories;
     }
 
 }

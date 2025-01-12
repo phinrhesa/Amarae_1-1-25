@@ -412,6 +412,15 @@ public class ManageSupplier extends javax.swing.JFrame {
         jTable1.setGridColor(Color.decode("#000000"));
         jTable1.setBackground(Color.decode("#FFFFFF"));
         jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+        
+        
+      // Set column widths
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80); 
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(200); 
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(200); 
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);  
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(200); 
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(250);
     }
 
     public boolean isEmpty() {

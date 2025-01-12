@@ -422,6 +422,14 @@ public class ManageProducts extends javax.swing.JFrame {
         jTable2.setGridColor(Color.decode("#000000"));
         jTable2.setBackground(Color.decode("#FFFFFF"));
         jTable2.setSelectionBackground(Color.decode("#627b76")); //COLOUR
+        
+        // Set column widths
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(80); 
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(300); 
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(300); 
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(100);  
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(100); 
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(500); 
     }
 
     private boolean isEmpty() {
@@ -477,7 +485,7 @@ public class ManageProducts extends javax.swing.JFrame {
                 System.out.println("Image Path Before Insert: " + imagePath);
 
                 if (!product.isIdExist(id)) {
-                    if (!product.isProSubCatExist(pname, cat)) {
+                    if (!product.isProCatExist(pname, cat)) {
                         product.insert(id, pname, cat, qty, price, imagePath);
                         jTable2.setModel(new DefaultTableModel(null, new Object[]{
                             "Product ID", "Product Name", "Category", "Quantity", "Price", "Image Path"}));
