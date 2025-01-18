@@ -88,6 +88,8 @@ public class Purchase extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabelImage = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -99,6 +101,7 @@ public class Purchase extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(43, 50, 63));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -165,11 +168,6 @@ public class Purchase extends javax.swing.JFrame {
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 57, 263, 34));
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 269, 194, 38));
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -187,6 +185,11 @@ public class Purchase extends javax.swing.JFrame {
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 361, 194, 38));
 
         jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 182, 194, 38));
 
         jButton1.setBackground(new java.awt.Color(98, 123, 118));
@@ -258,7 +261,7 @@ public class Purchase extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Total: 0.0");
         jLabel5.setToolTipText("");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 402, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 400, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -297,6 +300,15 @@ public class Purchase extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 147, -1, 218));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 21)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, 80, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 21)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("₱");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 20, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -305,10 +317,7 @@ public class Purchase extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
@@ -316,11 +325,13 @@ public class Purchase extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void init() {
-        jTextField4.setText(String.valueOf(purchaseDao.getMaxRow()));
+        //jTextField4.setText(String.valueOf(purchaseDao.getMaxRow()));
         productTable();
         purchaseTable();
         pId = purchaseDao.getMaxRow();
         setLocation(437, 95); // (higher(paright), higher(pababa))
+        jTextField4.setEditable(false);
+        jTextField2.setEditable(false);
 
     }
 
@@ -335,14 +346,26 @@ public class Purchase extends javax.swing.JFrame {
         jTable1.setSelectionBackground(Color.decode("#627b76")); //COLOUR
 
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        // Make the table non-editable
+        jTable1.setModel(new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        });
+
+        jTable1.setModel(model);
 
         // Set column widths
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(200);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(200);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(300);
         jTable1.getColumnModel().getColumn(5).setPreferredWidth(500);
+
+        
     }
 
     private void purchaseTable() {
@@ -358,7 +381,7 @@ public class Purchase extends javax.swing.JFrame {
         // Set column widths
         jTable2.getColumnModel().getColumn(0).setPreferredWidth(80);
         jTable2.getColumnModel().getColumn(1).setPreferredWidth(80);
-        jTable2.getColumnModel().getColumn(2).setPreferredWidth(400);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(250);
         jTable2.getColumnModel().getColumn(3).setPreferredWidth(80);
         jTable2.getColumnModel().getColumn(4).setPreferredWidth(80);
         jTable2.getColumnModel().getColumn(5).setPreferredWidth(80);
@@ -366,20 +389,18 @@ public class Purchase extends javax.swing.JFrame {
 
     private void clear() {
         jTextField4.setText(String.valueOf(purchaseDao.getMaxRow()));
-        jTextField2.setText("");
+        jTextField4.setText("");
         jTextField3.setText("0");
-        jTextField1.setText("");
+        jTextField2.setText(" ");
+        jTextField1.setText(" ");
         jLabelImage.setIcon(null);
         jTable1.clearSelection();
         imagePath = null;
+        jLabel9.setText(" ");
         price = 0.0;
         qty = 0;
 
     }
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -499,6 +520,7 @@ public class Purchase extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         model = (DefaultTableModel) jTable1.getModel();
         rowIndex = jTable1.getSelectedRow();
+        jTextField4.setText(model.getValueAt(rowIndex, 0).toString());
         jTextField2.setText(model.getValueAt(rowIndex, 1).toString());
         String s1 = model.getValueAt(rowIndex, 3).toString();
         String s2 = model.getValueAt(rowIndex, 4).toString();
@@ -507,6 +529,7 @@ public class Purchase extends javax.swing.JFrame {
         String path = model.getValueAt(rowIndex, 5).toString();
         imagePath = path;
         jLabelImage.setIcon(imageAdjust(path, null));
+        jLabel9.setText(model.getValueAt(rowIndex, 4).toString());
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -624,7 +647,7 @@ public class Purchase extends javax.swing.JFrame {
                     y += lineHeight;
                     g2d.drawString("Visit us again!", 10, y);
                     y += lineHeight;
-                    
+
                     return Printable.PAGE_EXISTS;
                 }
             });
@@ -642,9 +665,13 @@ public class Purchase extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Product ID", "Product Name", "category", "Quantity", "Price"}));
+        jTable1.setModel(new DefaultTableModel(null, new Object[]{"Product ID", "Product Name", "category", "Quantity", "Price", "Image Path"}));
         productDao.getProductValue(jTable1, jTextField1.getText());
      }//GEN-LAST:event_jTextField1KeyReleased
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     public void setDefault() {
         setVisible(false);
@@ -662,6 +689,7 @@ public class Purchase extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -669,6 +697,7 @@ public class Purchase extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelImage;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
